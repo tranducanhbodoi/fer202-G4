@@ -6,6 +6,8 @@ import Dashboard from "./pages/admin/Dashboard";
 import ProductManager from "./pages/admin/ProductManager";
 import CategoryManager from "./pages/admin/CategoryManager";
 import UserManager from "./pages/admin/UserManager";
+import Home from "./pages/Home";
+
 
 function App() {
   return (
@@ -15,12 +17,7 @@ function App() {
         {/* ========== PUBLIC ROUTE ========== */}
         <Route
           path="/"
-          element={
-            <div className="container text-center mt-5">
-              <h1>Clothing Store Website</h1>
-              <p>Welcome to FER202 Project</p>
-            </div>
-          }
+          element={<Home></Home>}
         />
 
         {/* ========== ADMIN ROUTE ========== */}
