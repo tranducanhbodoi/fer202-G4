@@ -1,24 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+import AdminLayout from "./pages/admin/AdminLayout";
+import Dashboard from "./pages/admin/Dashboard";
+import ProductManager from "./pages/admin/ProductManager";
+import CategoryManager from "./pages/admin/CategoryManager";
+import UserManager from "./pages/admin/UserManager";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+
+        {/* ========== PUBLIC ROUTE ========== */}
+        <Route
+          path="/"
+          element={
+            <div className="container text-center mt-5">
+              <h1>Clothing Store Website</h1>
+              <p>Welcome to FER202 Project</p>
+            </div>
+          }
+        />
+
+        {/* ========== ADMIN ROUTE ========== */}
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="products" element={<ProductManager />} />
+          <Route path="categories" element={<CategoryManager />} />
+          <Route path="users" element={<UserManager />} />
+        </Route>
+
+        {/* ========== 404 PAGE ========== */}
+        <Route
+          path="*"
+          element={
+            <div className="text-center mt-5">
+              <h2>404 - Page Not Found</h2>
+            </div>
+          }
+        />
+
+      </Routes>
+    </Router>
   );
 }
 
