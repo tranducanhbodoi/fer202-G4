@@ -398,5 +398,27 @@
       "inStock": true
     }
   ],
-  "carts": []
+  "carts": [
+    {
+      "id": 1,
+      "userId": 6,
+      "items": [
+        {
+          "productId": 8,
+          "quantity": 1,
+          "price": 850000
+        },
+        {
+          "productId": 26,
+          "quantity": 2,
+          "price": 130000
+        },
+        {
+          "productId": 14,
+          "quantity": 1,
+          "price": 300000
+        }
+      ]
+    }
+  ]
 }
