@@ -108,7 +108,7 @@
       "image": "https://placehold.co/400x400?text=Ao+Polo",
       "description": "Áo Polo lịch lãm, co giãn 4 chiều.",
       "categoryId": "cat_ao",
-      "rating": 4.0,
+      "rating": 4,
       "inStock": true
     },
     {
@@ -152,7 +152,7 @@
       "image": "https://placehold.co/400x400?text=Blazer",
       "description": "Áo Vest phong cách Hàn Quốc trẻ trung.",
       "categoryId": "cat_ao",
-      "rating": 5.0,
+      "rating": 5,
       "inStock": true
     },
     {
@@ -273,7 +273,7 @@
       "image": "https://placehold.co/400x400?text=Quan+Boi",
       "description": "Quần bơi chất liệu mau khô.",
       "categoryId": "cat_quan",
-      "rating": 4.0,
+      "rating": 4,
       "inStock": false
     },
     {
@@ -419,7 +419,7 @@
   "orders": [
     {
       "id": 1,
-      "userId": 3,
+      "userId": 2,
       "items": [
         {
           "productId": 3,
@@ -435,11 +435,15 @@
       "totalAmount": 850000,
       "shippingAddress": "123 Đường Cầu Giấy, Hà Nội",
       "status": "delivered",
-      "date": "2026-02-20"
+      "date": "2026-02-25T07:21:51.686Z",
+      "customerInfo": {
+        "fullName": "abc",
+        "phone": "0918273645"
+      }
     },
     {
       "id": 2,
-      "userId": 4,
+      "userId": 2,
       "items": [
         {
           "productId": 5,
@@ -450,7 +454,35 @@
       "totalAmount": 450000,
       "shippingAddress": "45 Lê Lợi, Quận 1, TP. HCM",
       "status": "processing",
-      "date": "2026-02-26"
+      "date": "2026-02-28T07:21:51.686Z",
+      "customerInfo": {
+        "fullName": "abc",
+        "phone": "0918273645"
+      }
+    },
+    {
+      "userId": 2,
+      "items": [
+        {
+          "productId": 1,
+          "quantity": 1,
+          "price": 150000
+        },
+        {
+          "productId": 21,
+          "quantity": 3,
+          "price": 50000
+        }
+      ],
+      "totalAmount": 300000,
+      "shippingAddress": "test",
+      "customerInfo": {
+        "fullName": "abc",
+        "phone": "0918273645"
+      },
+      "status": "processing",
+      "date": "2026-03-02T07:21:51.686Z",
+      "id": 3
     }
   ]
 }
