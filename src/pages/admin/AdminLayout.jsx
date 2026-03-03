@@ -4,9 +4,9 @@ import Sidebar from "../../components/Sidebar";
 const AdminLayout = () => {
   const currentUser = JSON.parse(localStorage.getItem("user"));
 
-  if (!currentUser || currentUser.role !== "admin") {
-    return <Navigate to="/" />;
-  }
+  // if (!currentUser || currentUser.role !== "admin") {
+  //   return <Navigate to="/" />;
+  // }
 
   return (
     <div className="d-flex">
