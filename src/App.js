@@ -17,6 +17,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Cart from "./pages/cart/Cart";
 import OrderHistory from "./pages/order/OrderHistory";
+import ProductDetail from "./pages/ProductDetail";
 // import VnpayReturn from "./pages/order/VnpayReturn";
 // import Checkout from "./pages/order/Checkout";
 
@@ -26,7 +27,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/login" replace />} />
         {/* ========== PUBLIC ROUTE ========== */}
-        <Route path="/" element={<Home></Home>} />
+        <Route path="/home" element={<Home></Home>} />
+        <Route path="/products/:id" element={<ProductDetail/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         {/* ========== ADMIN ROUTE ========== */}
@@ -38,10 +40,10 @@ function App() {
         </Route>
 
         {/* ========== USER ROUTE ========== */}
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/orders" element={<OrderHistory />} />
-          {/* <Route path="/checkout" element={<Checkout />} /> */}
-          {/* <Route path="/payment/vnpay_return" element={<VnpayReturn />} /> */}
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/orders" element={<OrderHistory />} />
+        {/* <Route path="/checkout" element={<Checkout />} /> */}
+        {/* <Route path="/payment/vnpay_return" element={<VnpayReturn />} /> */}
 
         {/* ========== 404 PAGE ========== */}
         <Route

@@ -12,7 +12,7 @@ import {
 import { getProducts } from "../services/productService";
 import { getCategories } from "../services/categoryService";
 import { useEffect, useState } from "react";
-import { Link, Links } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -37,7 +37,7 @@ export default function Home() {
   }, products[0]);
 
   const top6HighestRatingProducts = [...products]
-    .sort((product, nexProduct) => product.rating - nexProduct.rating)
+    .sort((product, nexProduct) => nexProduct.rating - product.rating)
     .slice(0, 6);
 
   return (
@@ -116,7 +116,7 @@ export default function Home() {
           <div className="mb-5">
             <div className="text-center mb-4">
               <p className="text-muted text-uppercase mb-2">New Products</p>
-              <h3 className="fw-bold text-uppercase">Shop the New Arrivals</h3>
+              <h3 className="fw-bold text-uppercase">Bộ Sưu Tập Mới Nhất</h3>
             </div>
 
             <div>
@@ -124,8 +124,15 @@ export default function Home() {
                 {products.slice(0, 4).map((product, index) => (
                   <Col key={index}>
                     <Card
-                      style={{ width: "18rem", height: "28rem" }}
-                      className="mb-4"
+                      style={{
+                        width: "18rem",
+                        height: "28rem",
+                        cursor: "pointer",
+                        textDecoration: "none",
+                      }}
+                      className="mb-4 shadow-sm"
+                      as={Link}
+                      to={`/products/${product.id}`}
                     >
                       <Card.Img variant="top" src={product.image}></Card.Img>
                       <Card.Body className="text-center">
@@ -137,10 +144,13 @@ export default function Home() {
                               {product.price.toLocaleString()}₫
                             </span>
                             {"  "}
-                            <del className="text-muted me-2">
+                            <span
+                              className="text-muted me-2"
+                              style={{ textDecoration: "line-through" }}
+                            >
                               {highestRatingProduct.originalPrice.toLocaleString()}
                               ₫
-                            </del>
+                            </span>
                           </p>
                         </Card.Subtitle>
                       </Card.Body>
@@ -151,7 +161,7 @@ export default function Home() {
             </div>
 
             <div className="text-center">
-              <Button>Show More</Button>
+              <Button>Xem tất cả</Button>
             </div>
           </div>
 
@@ -166,12 +176,14 @@ export default function Home() {
                   <>
                     <Col md={6} className="text-center mb-4 mb-md-0">
                       <div className="position-relative">
-                        <img
-                          src={highestRatingProduct.image}
-                          alt={highestRatingProduct.name}
-                          className="img-fluid rounded shadow"
-                          style={{ maxHeight: "500px", objectFit: "cover" }}
-                        />
+                        <Link to={`/products/${highestRatingProduct.id}`}>
+                          <img
+                            src={highestRatingProduct.image}
+                            alt={highestRatingProduct.name}
+                            className="img-fluid rounded shadow"
+                            style={{ maxHeight: "500px", objectFit: "cover" }}
+                          />
+                        </Link>
                         <Badge
                           bg="danger"
                           className="position-absolute top-0 start-0 m-3 fs-6"
@@ -195,7 +207,10 @@ export default function Home() {
                           {highestRatingProduct.price.toLocaleString()}₫
                         </span>
 
-                        <span className="text-muted text-decoration-line-through me-2">
+                        <span
+                          className="text-muted me-2"
+                          style={{ textDecoration: "line-through" }}
+                        >
                           {highestRatingProduct.originalPrice.toLocaleString()}₫
                         </span>
 
@@ -222,12 +237,16 @@ export default function Home() {
                       </p>
 
                       <div className="mt-4">
-                        <button className="btn btn-dark me-3 px-4 py-2">
+                        <Button className="btn-dark me-3 px-4 py-2">
                           Add to Cart
-                        </button>
-                        <button className="btn btn-outline-dark px-4 py-2">
+                        </Button>
+                        <Button
+                          className="outline-dark px-4 py-2"
+                          as={Link}
+                          to={`/products/${highestRatingProduct.id}`}
+                        >
                           View Details
-                        </button>
+                        </Button>
                       </div>
                     </Col>
                   </>
@@ -247,7 +266,12 @@ export default function Home() {
             <Row className="g-4">
               {top6HighestRatingProducts.map((product) => (
                 <Col md={6} lg={4} key={product.id}>
-                  <Card className="h-100 border-0 shadow-sm product-card">
+                  <Card
+                    className="h-100 border-0 shadow-sm product-card"
+                    as={Link}
+                    to={`/products/${product.id}`}
+                    style={{ cursor: "pointer", textDecoration: "none" }}
+                  >
                     <div className="overflow-hidden">
                       <Card.Img
                         variant="top"
@@ -256,14 +280,11 @@ export default function Home() {
                           height: "250px",
                           objectFit: "cover",
                         }}
-                        className="product-image"
                       />
                     </div>
 
                     <Card.Body className="text-center d-flex flex-column">
-                      <Card.Title className="fw-semibold">
-                        {product.name}
-                      </Card.Title>
+                      <Card.Title>{product.name}</Card.Title>
 
                       <div className="text-warning mb-2">
                         {"⭐".repeat(Math.round(product.rating))}
@@ -272,9 +293,7 @@ export default function Home() {
                         </span>
                       </div>
 
-                      <Card.Text className="text-muted small flex-grow-1">
-                        {product.description}
-                      </Card.Text>
+                      <Card.Text>{product.description}</Card.Text>
 
                       <div className="mt-3">
                         <span className="fs-5 fw-bold text-danger me-2">
@@ -290,6 +309,9 @@ export default function Home() {
                 </Col>
               ))}
             </Row>
+            <div className="text-center mt-4">
+              <Button>Xem tất cả</Button>
+            </div>
           </div>
         </Container>
       </div>
