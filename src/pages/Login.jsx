@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import icon ở đây
-
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import "../css/Auth.css";
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -15,7 +15,7 @@ const Login = () => {
 
         try {
             const response = await fetch(
-                `http://localhost:9999/users?email=${email}&password=${password}`
+                `http://localhost:3001/users?email=${email}&password=${password}`
             );
             const users = await response.json();
 
@@ -37,64 +37,57 @@ const Login = () => {
     };
 
     return (
-        <div className="container mt-5">
-            <div className="row justify-content-center">
-                <div className="col-md-6 col-lg-4">
-                    <div className="card shadow">
-                        <div className="card-body">
-                            <h3 className="text-center mb-4">Đăng Nhập</h3>
+        <div className="auth-wrapper">
+            <div className="auth-box">
+                <h3 className="text-center mb-4">Đăng Nhập</h3>
 
-                            {error && <div className="alert alert-danger">{error}</div>}
+                {error && <div className="alert alert-danger rounded-3">{error}</div>}
 
-                            <form onSubmit={handleLogin}>
-                                <div className="mb-3">
-                                    <label className="form-label">Email</label>
-                                    <input
-                                        type="email"
-                                        className="form-control"
-                                        placeholder="Nhập email..."
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        required
-                                    />
-                                </div>
+                <form onSubmit={handleLogin}>
+                    <div className="mb-3">
+                        <label className="form-label fw-bold">Email</label>
+                        <input
+                            type="email"
+                            className="form-control"
+                            placeholder="Nhập email..."
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+                    </div>
 
-                                <div className="mb-3">
-                                    <label className="form-label">Mật khẩu</label>
-                                    <div className="input-group">
-                                        <input
-                                            type={showPassword ? "text" : "password"}
-                                            className="form-control"
-                                            placeholder="Nhập mật khẩu..."
-                                            value={password}
-                                            onChange={(e) => setPassword(e.target.value)}
-                                            required
-                                        />
-                                        <button
-                                            className="btn btn-outline-secondary d-flex align-items-center"
-                                            type="button"
-                                            onClick={() => setShowPassword(!showPassword)}
-                                        >
-
-                                            {showPassword ? <FaEyeSlash /> : <FaEye />}
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <button type="submit" className="btn btn-primary w-100 mb-3">
-                                    Đăng nhập
-                                </button>
-
-                                <div className="text-center">
-                                    <span>Chưa có tài khoản? </span>
-                                    <Link to="/register" className="text-decoration-none">
-                                        Đăng ký ngay
-                                    </Link>
-                                </div>
-                            </form>
+                    <div className="mb-3">
+                        <label className="form-label fw-bold">Mật khẩu</label>
+                        <div className="input-group">
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                className="form-control"
+                                placeholder="Nhập mật khẩu..."
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                            />
+                            <button
+                                className="btn btn-outline-secondary d-flex align-items-center"
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                            >
+                                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                            </button>
                         </div>
                     </div>
-                </div>
+
+                    <button type="submit" className="btn btn-primary btn-auth w-100 mb-3">
+                        Đăng Nhập
+                    </button>
+                    
+                    <div className="text-center mt-2">
+                        <span className="text-muted">Chưa có tài khoản? </span>
+                        <Link to="/register" className="text-decoration-none fw-bold">
+                            Đăng ký ngay
+                        </Link>
+                    </div>
+                </form>
             </div>
         </div>
     );
