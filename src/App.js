@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import AdminLayout from "./pages/admin/AdminLayout";
@@ -8,18 +13,18 @@ import CategoryManager from "./pages/admin/CategoryManager";
 import UserManager from "./pages/admin/UserManager";
 import Home from "./pages/Home";
 
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
   return (
     <Router>
       <Routes>
-
+        <Route path="/" element={<Navigate to="/login" replace />} />
         {/* ========== PUBLIC ROUTE ========== */}
-        <Route
-          path="/"
-          element={<Home></Home>}
-        />
-
+        <Route path="/" element={<Home></Home>} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         {/* ========== ADMIN ROUTE ========== */}
         <Route path="/admin" element={<AdminLayout />}>
           <Route path="dashboard" element={<Dashboard />} />
@@ -37,7 +42,6 @@ function App() {
             </div>
           }
         />
-
       </Routes>
     </Router>
   );
