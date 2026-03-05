@@ -3,12 +3,14 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="bg-dark text-light pt-5 pb-3 mt-5">
+    <footer
+      className="bg-dark text-light pt-5 pb-3 mt-5"
+      style={{ position: "fixed", left: 0, bottom: 0, width: "100%" }}
+    >
       <Container>
         <Row className="mb-4">
           <Col md={4} className="mb-4">
             <h5 className="fw-bold">Clothing Shop</h5>
-            
           </Col>
 
           <Col md={4} className="mb-4">
@@ -61,7 +63,8 @@ export default function Footer() {
                   fill-rule="evenodd"
                   d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z"
                 />
-              </svg>{" "} Hòa Lạc Hi-tech Park, km 29, Đại lộ Thăng Long, Hà Nội
+              </svg>{" "}
+              Hòa Lạc Hi-tech Park, km 29, Đại lộ Thăng Long, Hà Nội
             </Link>
             <p className="text-secondary mb-1">
               <svg
