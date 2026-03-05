@@ -1,496 +1,105 @@
 {
   "users": [
-    {
-      "id": "1",
-      "email": "admin@gmail.com",
-      "password": "password123",
-      "fullName": "Quản Trị Viên",
-      "role": "admin",
-      "phone": "0901234567"
-    },
-    {
-      "id": "2",
-      "email": "tranducanh@gmail.com",
-      "password": "password123",
-      "fullName": "Trần Đức Anh",
-      "role": "user",
-      "phone": "0912345678"
-    },
-    {
-      "id": "3",
-      "email": "ducnamle432@gmail.com",
-      "password": "password123",
-      "fullName": "Lê Đức Nam",
-      "role": "user",
-      "phone": "09020999905"
-    },
-    {
-      "id": "4",
-      "email": "hieuvu@gmail.com",
-      "password": "password123",
-      "fullName": "Hiếu Vũ",
-      "role": "user",
-      "phone": "0933445566"
-    },
-    {
-      "id": "5",
-      "email": "hoangtran@gmail.com",
-      "password": "password123",
-      "fullName": "Hoang Tran",
-      "role": "user",
-      "phone": "0977889900"
-    },
-    {
-      "id": "6",
-      "email": "lethang@gmail.com",
-      "password": "password123",
-      "fullName": "Lê Thắng",
-      "role": "user",
-      "phone": "0977889900"
-    },
-    {
-      "id": "c12c",
-      "email": "ducanhtran507@gmail.com",
-      "password": "tranducanh2005",
-      "fullName": "",
-      "phone": "",
-      "role": "user"
-    }
+    { "id": "1", "email": "admin@gmail.com", "password": "password123", "fullName": "Quản Trị Viên", "role": "admin", "phone": "0901234567" },
+    { "id": "2", "email": "tranducanh@gmail.com", "password": "password123", "fullName": "Trần Đức Anh", "role": "user", "phone": "0912345678" },
+    { "id": "3", "email": "ducnamle432@gmail.com", "password": "password123", "fullName": "Lê Đức Nam", "role": "user", "phone": "09020999905" },
+    { "id": "4", "email": "hieuvu@gmail.com", "password": "password123", "fullName": "Hiếu Vũ", "role": "user", "phone": "0933445566" },
+    { "id": "5", "email": "hoangtran@gmail.com", "password": "password123", "fullName": "Hoang Tran", "role": "user", "phone": "0977889900" },
+    { "id": "6", "email": "lethang@gmail.com", "password": "password123", "fullName": "Lê Thắng", "role": "user", "phone": "0977889900" },
+    { "id": "c12c", "email": "ducanhtran507@gmail.com", "password": "tranducanh2005", "fullName": "", "phone": "", "role": "user" }
   ],
   "categories": [
-    {
-      "id": "cat_ao",
-      "name": "Áo Thời Trang",
-      "slug": "ao-thoi-trang"
-    },
-    {
-      "id": "cat_quan",
-      "name": "Quần Các Loại",
-      "slug": "quan-cac-loai"
-    },
-    {
-      "id": "cat_phukien",
-      "name": "Phụ Kiện (Khăn, Tất, Mũ)",
-      "slug": "phu-kien"
-    }
+    { "id": "cat_ao", "name": "Áo Thời Trang", "slug": "ao-thoi-trang" },
+    { "id": "cat_quan", "name": "Quần Các Loại", "slug": "quan-cac-loai" },
+    { "id": "cat_phukien", "name": "Phụ Kiện (Khăn, Tất, Mũ)", "slug": "phu-kien" }
   ],
   "products": [
-    {
-      "id": "1",
-      "name": "Áo Thun Basic Trắng",
-      "price": 150000,
-      "originalPrice": 200000,
-      "image": "anhdefault.jpg",
-      "description": "Áo thun cotton 100% thoáng mát, form rộng.",
-      "categoryId": "cat_ao",
-      "rating": 4.5,
-      "inStock": true
-    },
-    {
-      "id": "2",
-      "name": "Áo Thun Basic Đen",
-      "price": 150000,
-      "originalPrice": 200000,
-      "image": "anhdefault.jpg",
-      "description": "Áo thun màu đen huyền bí, dễ phối đồ.",
-      "categoryId": "cat_ao",
-      "rating": 4.8,
-      "inStock": true
-    },
-    {
-      "id": "3",
-      "name": "anhdefault.jpg",
-      "price": 350000,
-      "originalPrice": 400000,
-      "image": "anhdefault.jpg",
-      "description": "Áo sơ mi vải Oxford dày dặn, thích hợp công sở.",
-      "categoryId": "cat_ao",
-      "rating": 4.2,
-      "inStock": true
-    },
-    {
-      "id": "4",
-      "name": "Áo Polo Nam",
-      "price": 250000,
-      "originalPrice": 300000,
-      "image": "anhdefault.jpg",
-      "description": "Áo Polo lịch lãm, co giãn 4 chiều.",
-      "categoryId": "cat_ao",
-      "rating": 4,
-      "inStock": true
-    },
-    {
-      "id": "5",
-      "name": "Áo Hoodie Oversize",
-      "price": 450000,
-      "originalPrice": 550000,
-      "image": "anhdefault.jpg",
-      "description": "Áo Hoodie nỉ bông ấm áp cho mùa đông.",
-      "categoryId": "cat_ao",
-      "rating": 4.9,
-      "inStock": true
-    },
-    {
-      "id": "6",
-      "name": "Áo Khoác Denim",
-      "price": 600000,
-      "originalPrice": 750000,
-      "image": "anhdefault.jpg",
-      "description": "Áo khoác bò phong cách bụi bặm.",
-      "categoryId": "cat_ao",
-      "rating": 4.7,
-      "inStock": true
-    },
-    {
-      "id": "7",
-      "name": "Áo Len Cổ Lọ",
-      "price": 320000,
-      "originalPrice": 400000,
-      "image": "anhdefault.jpg",
-      "description": "Áo len mỏng nhẹ, giữ nhiệt tốt.",
-      "categoryId": "cat_ao",
-      "rating": 4.3,
-      "inStock": false
-    },
-    {
-      "id": "8",
-      "name": "Áo Vest Blaze",
-      "price": 850000,
-      "originalPrice": 1200000,
-      "image": "anhdefault.jpg",
-      "description": "Áo Vest phong cách Hàn Quốc trẻ trung.",
-      "categoryId": "cat_ao",
-      "rating": 5,
-      "inStock": true
-    },
-    {
-      "id": "9",
-      "name": "Áo Ba Lỗ Thể Thao",
-      "price": 100000,
-      "originalPrice": 150000,
-      "image": "anhdefault.jpg",
-      "description": "Áo ba lỗ tập gym, thoáng khí.",
-      "categoryId": "cat_ao",
-      "rating": 4.1,
-      "inStock": true
-    },
-    {
-      "id": "10",
-      "name": "Áo Flannel Caro",
-      "price": 280000,
-      "originalPrice": 350000,
-      "image": "anhdefault.jpg",
-      "description": "Áo sơ mi kẻ caro phong cách đường phố.",
-      "categoryId": "cat_ao",
-      "rating": 4.6,
-      "inStock": true
-    },
-    {
-      "id": "11",
-      "name": "Quần Jean Slim Fit",
-      "price": 450000,
-      "originalPrice": 500000,
-      "image": "anhdefault.jpg",
-      "description": "Quần Jean ôm dáng, co giãn tốt.",
-      "categoryId": "cat_quan",
-      "rating": 4.5,
-      "inStock": true
-    },
-    {
-      "id": "12",
-      "name": "Quần Short Kaki",
-      "price": 220000,
-      "originalPrice": 280000,
-      "image": "anhdefault.jpg",
-      "description": "Quần short ngắn năng động mùa hè.",
-      "categoryId": "cat_quan",
-      "rating": 4.4,
-      "inStock": true
-    },
-    {
-      "id": "13",
-      "name": "Quần Âu Công Sở",
-      "price": 500000,
-      "originalPrice": 600000,
-      "image": "anhdefault.jpg",
-      "description": "Quần tây vải không nhăn, dáng đứng.",
-      "categoryId": "cat_quan",
-      "rating": 4.8,
-      "inStock": true
-    },
-    {
-      "id": "14",
-      "name": "Quần Jogger Nỉ",
-      "price": 300000,
-      "originalPrice": 350000,
-      "image": "anhdefault.jpg",
-      "description": "Quần Jogger bo gấu, phong cách thể thao.",
-      "categoryId": "cat_quan",
-      "rating": 4.2,
-      "inStock": true
-    },
-    {
-      "id": "15",
-      "name": "Quần Baggy Ống Rộng",
-      "price": 380000,
-      "originalPrice": 450000,
-      "image": "anhdefault.jpg",
-      "description": "Quần ống rộng thoải mái, che khuyết điểm.",
-      "categoryId": "cat_quan",
-      "rating": 4.6,
-      "inStock": true
-    },
-    {
-      "id": "16",
-      "name": "Quần Jean Rách Gối",
-      "price": 480000,
-      "originalPrice": 550000,
-      "image": "anhdefault.jpg",
-      "description": "Quần Jean rách gối cá tính.",
-      "categoryId": "cat_quan",
-      "rating": 4.3,
-      "inStock": true
-    },
-    {
-      "id": "17",
-      "name": "Quần Short Jean",
-      "price": 250000,
-      "originalPrice": 300000,
-      "image": "anhdefault.jpg",
-      "description": "Quần soóc bò bền đẹp.",
-      "categoryId": "cat_quan",
-      "rating": 4.1,
-      "inStock": true
-    },
-    {
-      "id": "18",
-      "name": "Quần Chinos",
-      "price": 420000,
-      "originalPrice": 500000,
-      "image": "anhdefault.jpg",
-      "description": "Quần Chinos màu be dễ phối đồ.",
-      "categoryId": "cat_quan",
-      "rating": 4.7,
-      "inStock": true
-    },
-    {
-      "id": "19",
-      "name": "Quần Bơi Nam",
-      "price": 180000,
-      "originalPrice": 250000,
-      "image": "anhdefault.jpg",
-      "description": "Quần bơi chất liệu mau khô.",
-      "categoryId": "cat_quan",
-      "rating": 4,
-      "inStock": false
-    },
-    {
-      "id": "20",
-      "name": "Quần Cargo Túi Hộp",
-      "price": 550000,
-      "originalPrice": 650000,
-      "image": "anhdefault.jpg",
-      "description": "Quần túi hộp hầm hố, trend năm nay.",
-      "categoryId": "cat_quan",
-      "rating": 4.9,
-      "inStock": true
-    },
-    {
-      "id": "21",
-      "name": "Tất Cổ Cao (Set 3 đôi)",
-      "price": 50000,
-      "originalPrice": 80000,
-      "image": "anhdefault.jpg",
-      "description": "Tất cotton khử mùi, cổ cao vintage.",
-      "categoryId": "cat_phukien",
-      "rating": 4.8,
-      "inStock": true
-    },
-    {
-      "id": "22",
-      "name": "Tất Cổ Thấp (Set 5 đôi)",
-      "price": 60000,
-      "originalPrice": 90000,
-      "image": "anhdefault.jpg",
-      "description": "Tất lười đi giày sneaker.",
-      "categoryId": "cat_phukien",
-      "rating": 4.6,
-      "inStock": true
-    },
-    {
-      "id": "23",
-      "name": "Khăn Choàng Len",
-      "price": 120000,
-      "originalPrice": 180000,
-      "image": "anhdefault.jpg",
-      "description": "Khăn len dài, giữ ấm cực tốt.",
-      "categoryId": "cat_phukien",
-      "rating": 4.5,
-      "inStock": true
-    },
-    {
-      "id": "24",
-      "name": "Khăn Lụa Vuông",
-      "price": 90000,
-      "originalPrice": 150000,
-      "image": "anhdefault.jpg",
-      "description": "Khăn lụa phụ kiện buộc cổ hoặc túi xách.",
-      "categoryId": "cat_phukien",
-      "rating": 4.3,
-      "inStock": true
-    },
-    {
-      "id": "25",
-      "name": "Mũ Lưỡi Trai Basic",
-      "price": 150000,
-      "originalPrice": 200000,
-      "image": "anhdefault.jpg",
-      "description": "Mũ lưỡi trai form cứng cáp.",
-      "categoryId": "cat_phukien",
-      "rating": 4.7,
-      "inStock": true
-    },
-    {
-      "id": "26",
-      "name": "Mũ Bucket",
-      "price": 130000,
-      "originalPrice": 180000,
-      "image": "anhdefault.jpg",
-      "description": "Mũ tai bèo phong cách đường phố.",
-      "categoryId": "cat_phukien",
-      "rating": 4.4,
-      "inStock": true
-    },
-    {
-      "id": "27",
-      "name": "Thắt Lưng Da",
-      "price": 250000,
-      "originalPrice": 350000,
-      "image": "anhdefault.jpg",
-      "description": "Thắt lưng da bò thật 100%.",
-      "categoryId": "cat_phukien",
-      "rating": 4.8,
-      "inStock": true
-    },
-    {
-      "id": "28",
-      "name": "Ví Da Nam",
-      "price": 300000,
-      "originalPrice": 450000,
-      "image": "anhdefault.jpg",
-      "description": "Ví da nam nhỏ gọn, nhiều ngăn.",
-      "categoryId": "cat_phukien",
-      "rating": 4.9,
-      "inStock": true
-    },
-    {
-      "id": "29",
-      "name": "Kính Mát Thời Trang",
-      "price": 200000,
-      "originalPrice": 300000,
-      "image": "anhdefault.jpg",
-      "description": "Kính râm chống tia UV.",
-      "categoryId": "cat_phukien",
-      "rating": 4.2,
-      "inStock": true
-    },
-    {
-      "id": "30",
-      "name": "Găng Tay Mùa Đông",
-      "price": 80000,
-      "originalPrice": 120000,
-      "image": "anhdefault.jpg",
-      "description": "Găng tay len có thể dùng điện thoại cảm ứng.",
-      "categoryId": "cat_phukien",
-      "rating": 4.5,
-      "inStock": true
-    }
+    { "id": "1", "name": "Áo Thun Basic Trắng", "price": 150000, "originalPrice": 200000, "image": "anhdefault.jpg", "description": "Áo thun cotton 100% thoáng mát, form rộng.", "categoryId": "cat_ao", "rating": 4.5, "inStock": true, "availableSizes": ["S", "M", "L"] },
+    { "id": "2", "name": "Áo Thun Basic Đen", "price": 150000, "originalPrice": 200000, "image": "anhdefault.jpg", "description": "Áo thun màu đen huyền bí, dễ phối đồ.", "categoryId": "cat_ao", "rating": 4.8, "inStock": true, "availableSizes": ["S", "M", "L"] },
+    { "id": "3", "name": "Áo Sơ Mi Oxford", "price": 350000, "originalPrice": 400000, "image": "anhdefault.jpg", "description": "Áo sơ mi vải Oxford dày dặn, thích hợp công sở.", "categoryId": "cat_ao", "rating": 4.2, "inStock": true, "availableSizes": ["S", "M", "L"] },
+    { "id": "4", "name": "Áo Polo Nam", "price": 250000, "originalPrice": 300000, "image": "anhdefault.jpg", "description": "Áo Polo lịch lãm, co giãn 4 chiều.", "categoryId": "cat_ao", "rating": 4, "inStock": true, "availableSizes": ["S", "M", "L"] },
+    { "id": "5", "name": "Áo Hoodie Oversize", "price": 450000, "originalPrice": 550000, "image": "anhdefault.jpg", "description": "Áo Hoodie nỉ bông ấm áp cho mùa đông.", "categoryId": "cat_ao", "rating": 4.9, "inStock": true, "availableSizes": ["S", "M", "L"] },
+    { "id": "6", "name": "Áo Khoác Denim", "price": 600000, "originalPrice": 750000, "image": "anhdefault.jpg", "description": "Áo khoác bò phong cách bụi bặm.", "categoryId": "cat_ao", "rating": 4.7, "inStock": true, "availableSizes": ["S", "M", "L"] },
+    { "id": "7", "name": "Áo Len Cổ Lọ", "price": 320000, "originalPrice": 400000, "image": "anhdefault.jpg", "description": "Áo len mỏng nhẹ, giữ nhiệt tốt.", "categoryId": "cat_ao", "rating": 4.3, "inStock": false, "availableSizes": ["S", "M", "L"] },
+    { "id": "8", "name": "Áo Vest Blaze", "price": 850000, "originalPrice": 1200000, "image": "anhdefault.jpg", "description": "Áo Vest phong cách Hàn Quốc trẻ trung.", "categoryId": "cat_ao", "rating": 5, "inStock": true, "availableSizes": ["S", "M", "L"] },
+    { "id": "9", "name": "Áo Ba Lỗ Thể Thao", "price": 100000, "originalPrice": 150000, "image": "anhdefault.jpg", "description": "Áo ba lỗ tập gym, thoáng khí.", "categoryId": "cat_ao", "rating": 4.1, "inStock": true, "availableSizes": ["S", "M", "L"] },
+    { "id": "10", "name": "Áo Flannel Caro", "price": 280000, "originalPrice": 350000, "image": "anhdefault.jpg", "description": "Áo sơ mi kẻ caro phong cách đường phố.", "categoryId": "cat_ao", "rating": 4.6, "inStock": true, "availableSizes": ["S", "M", "L"] },
+    { "id": "11", "name": "Quần Jean Slim Fit", "price": 450000, "originalPrice": 500000, "image": "anhdefault.jpg", "description": "Quần Jean ôm dáng, co giãn tốt.", "categoryId": "cat_quan", "rating": 4.5, "inStock": true, "availableSizes": ["S", "M", "L"] },
+    { "id": "12", "name": "Quần Short Kaki", "price": 220000, "originalPrice": 280000, "image": "anhdefault.jpg", "description": "Quần short ngắn năng động mùa hè.", "categoryId": "cat_quan", "rating": 4.4, "inStock": true, "availableSizes": ["S", "M", "L"] },
+    { "id": "13", "name": "Quần Âu Công Sở", "price": 500000, "originalPrice": 600000, "image": "anhdefault.jpg", "description": "Quần tây vải không nhăn, dáng đứng.", "categoryId": "cat_quan", "rating": 4.8, "inStock": true, "availableSizes": ["S", "M", "L"] },
+    { "id": "14", "name": "Quần Jogger Nỉ", "price": 300000, "originalPrice": 350000, "image": "anhdefault.jpg", "description": "Quần Jogger bo gấu, phong cách thể thao.", "categoryId": "cat_quan", "rating": 4.2, "inStock": true, "availableSizes": ["S", "M", "L"] },
+    { "id": "15", "name": "Quần Baggy Ống Rộng", "price": 380000, "originalPrice": 450000, "image": "anhdefault.jpg", "description": "Quần ống rộng thoải mái, che khuyết điểm.", "categoryId": "cat_quan", "rating": 4.6, "inStock": true, "availableSizes": ["S", "M", "L"] },
+    { "id": "16", "name": "Quần Jean Rách Gối", "price": 480000, "originalPrice": 550000, "image": "anhdefault.jpg", "description": "Quần Jean rách gối cá tính.", "categoryId": "cat_quan", "rating": 4.3, "inStock": true, "availableSizes": ["S", "M", "L"] },
+    { "id": "17", "name": "Quần Short Jean", "price": 250000, "originalPrice": 300000, "image": "anhdefault.jpg", "description": "Quần soóc bò bền đẹp.", "categoryId": "cat_quan", "rating": 4.1, "inStock": true, "availableSizes": ["S", "M", "L"] },
+    { "id": "18", "name": "Quần Chinos", "price": 420000, "originalPrice": 500000, "image": "anhdefault.jpg", "description": "Quần Chinos màu be dễ phối đồ.", "categoryId": "cat_quan", "rating": 4.7, "inStock": true, "availableSizes": ["S", "M", "L"] },
+    { "id": "19", "name": "Quần Bơi Nam", "price": 180000, "originalPrice": 250000, "image": "anhdefault.jpg", "description": "Quần bơi chất liệu mau khô.", "categoryId": "cat_quan", "rating": 4, "inStock": false, "availableSizes": ["S", "M", "L"] },
+    { "id": "20", "name": "Quần Cargo Túi Hộp", "price": 550000, "originalPrice": 650000, "image": "anhdefault.jpg", "description": "Quần túi hộp hầm hố, trend năm nay.", "categoryId": "cat_quan", "rating": 4.9, "inStock": true, "availableSizes": ["S", "M", "L"] },
+    { "id": "21", "name": "Tất Cổ Cao (Set 3 đôi)", "price": 50000, "originalPrice": 80000, "image": "anhdefault.jpg", "description": "Tất cotton khử mùi, cổ cao vintage.", "categoryId": "cat_phukien", "rating": 4.8, "inStock": true, "availableSizes": ["Free Size"] },
+    { "id": "22", "name": "Tất Cổ Thấp (Set 5 đôi)", "price": 60000, "originalPrice": 90000, "image": "anhdefault.jpg", "description": "Tất lười đi giày sneaker.", "categoryId": "cat_phukien", "rating": 4.6, "inStock": true, "availableSizes": ["Free Size"] },
+    { "id": "23", "name": "Khăn Choàng Len", "price": 120000, "originalPrice": 180000, "image": "anhdefault.jpg", "description": "Khăn len dài, giữ ấm cực tốt.", "categoryId": "cat_phukien", "rating": 4.5, "inStock": true, "availableSizes": ["Free Size"] },
+    { "id": "24", "name": "Khăn Lụa Vuông", "price": 90000, "originalPrice": 150000, "image": "anhdefault.jpg", "description": "Khăn lụa phụ kiện buộc cổ hoặc túi xách.", "categoryId": "cat_phukien", "rating": 4.3, "inStock": true, "availableSizes": ["Free Size"] },
+    { "id": "25", "name": "Mũ Lưỡi Trai Basic", "price": 150000, "originalPrice": 200000, "image": "anhdefault.jpg", "description": "Mũ lưỡi trai form cứng cáp.", "categoryId": "cat_phukien", "rating": 4.7, "inStock": true, "availableSizes": ["Free Size"] },
+    { "id": "26", "name": "Mũ Bucket", "price": 130000, "originalPrice": 180000, "image": "anhdefault.jpg", "description": "Mũ tai bèo phong cách đường phố.", "categoryId": "cat_phukien", "rating": 4.4, "inStock": true, "availableSizes": ["Free Size"] },
+    { "id": "27", "name": "Thắt Lưng Da", "price": 250000, "originalPrice": 350000, "image": "anhdefault.jpg", "description": "Thắt lưng da bò thật 100%.", "categoryId": "cat_phukien", "rating": 4.8, "inStock": true, "availableSizes": ["Free Size"] },
+    { "id": "28", "name": "Ví Da Nam", "price": 300000, "originalPrice": 450000, "image": "anhdefault.jpg", "description": "Ví da nam nhỏ gọn, nhiều ngăn.", "categoryId": "cat_phukien", "rating": 4.9, "inStock": true, "availableSizes": ["Free Size"] },
+    { "id": "29", "name": "Kính Mát Thời Trang", "price": 200000, "originalPrice": 300000, "image": "anhdefault.jpg", "description": "Kính râm chống tia UV.", "categoryId": "cat_phukien", "rating": 4.2, "inStock": true, "availableSizes": ["Free Size"] },
+    { "id": "30", "name": "Găng Tay Mùa Đông", "price": 80000, "originalPrice": 120000, "image": "anhdefault.jpg", "description": "Găng tay len có thể dùng điện thoại cảm ứng.", "categoryId": "cat_phukien", "rating": 4.5, "inStock": true, "availableSizes": ["Free Size"] },
+    { "id": "31", "name": "Áo Khoác Gió Thể Thao", "price": 350000, "originalPrice": 450000, "image": "anhdefault.jpg", "description": "Áo gió 2 lớp chống nước, cản gió nhẹ.", "categoryId": "cat_ao", "rating": 4.6, "inStock": true, "availableSizes": ["S", "M", "L"] },
+    { "id": "32", "name": "Áo Thun Tay Dài", "price": 180000, "originalPrice": 250000, "image": "anhdefault.jpg", "description": "Áo thun mặc thu đông, ôm body.", "categoryId": "cat_ao", "rating": 4.2, "inStock": true, "availableSizes": ["S", "M", "L"] },
+    { "id": "33", "name": "Áo Sơ Mi Cổ Tàu", "price": 290000, "originalPrice": 350000, "image": "anhdefault.jpg", "description": "Áo sơ mi đũi nam cổ tàu mộc mạc.", "categoryId": "cat_ao", "rating": 4.7, "inStock": true, "availableSizes": ["S", "M", "L"] },
+    { "id": "34", "name": "Áo Khoác Bomber", "price": 550000, "originalPrice": 700000, "image": "anhdefault.jpg", "description": "Bomber jacket phong cách trẻ trung.", "categoryId": "cat_ao", "rating": 4.9, "inStock": false, "availableSizes": ["S", "M", "L"] },
+    { "id": "35", "name": "Áo Len Cardigan", "price": 420000, "originalPrice": 500000, "image": "anhdefault.jpg", "description": "Cardigan len dày dặn, cúc gỗ.", "categoryId": "cat_ao", "rating": 4.8, "inStock": true, "availableSizes": ["S", "M", "L"] },
+    { "id": "36", "name": "Áo Gile Len Nam", "price": 250000, "originalPrice": 320000, "image": "anhdefault.jpg", "description": "Gile len mặc phối cùng sơ mi.", "categoryId": "cat_ao", "rating": 4.4, "inStock": true, "availableSizes": ["S", "M", "L"] },
+    { "id": "37", "name": "Áo Phông In Hình", "price": 160000, "originalPrice": 220000, "image": "anhdefault.jpg", "description": "Áo phông in graphic cá tính.", "categoryId": "cat_ao", "rating": 4.1, "inStock": true, "availableSizes": ["S", "M", "L"] },
+    { "id": "38", "name": "Áo Polo Kẻ Sọc", "price": 270000, "originalPrice": 330000, "image": "anhdefault.jpg", "description": "Áo Polo kẻ sọc ngang thanh lịch.", "categoryId": "cat_ao", "rating": 4.5, "inStock": true, "availableSizes": ["S", "M", "L"] },
+    { "id": "39", "name": "Áo Khoác Phao", "price": 750000, "originalPrice": 950000, "image": "anhdefault.jpg", "description": "Áo khoác phao siêu nhẹ, giữ ấm đỉnh.", "categoryId": "cat_ao", "rating": 4.8, "inStock": true, "availableSizes": ["S", "M", "L"] },
+    { "id": "40", "name": "Áo Sơ Mi Họa Tiết", "price": 310000, "originalPrice": 400000, "image": "anhdefault.jpg", "description": "Sơ mi họa tiết Hawaii đi biển.", "categoryId": "cat_ao", "rating": 4.3, "inStock": true, "availableSizes": ["S", "M", "L"] },
+    { "id": "41", "name": "Áo Khoác Da Biker", "price": 1200000, "originalPrice": 1500000, "image": "anhdefault.jpg", "description": "Áo da lót nỉ sành điệu.", "categoryId": "cat_ao", "rating": 5.0, "inStock": true, "availableSizes": ["S", "M", "L"] },
+    { "id": "42", "name": "Áo Thun Thể Thao", "price": 140000, "originalPrice": 190000, "image": "anhdefault.jpg", "description": "Chất liệu polyester thấm hút mồ hôi.", "categoryId": "cat_ao", "rating": 4.5, "inStock": true, "availableSizes": ["S", "M", "L"] },
+    { "id": "43", "name": "Áo Hoodie Zip", "price": 380000, "originalPrice": 480000, "image": "anhdefault.jpg", "description": "Hoodie có khóa kéo tiện lợi.", "categoryId": "cat_ao", "rating": 4.6, "inStock": true, "availableSizes": ["S", "M", "L"] },
+    { "id": "44", "name": "Áo Sơ Mi Lụa", "price": 450000, "originalPrice": 600000, "image": "anhdefault.jpg", "description": "Sơ mi lụa mềm mịn, chống nhăn.", "categoryId": "cat_ao", "rating": 4.7, "inStock": false, "availableSizes": ["S", "M", "L"] },
+    { "id": "45", "name": "Áo Dạ Dáng Dài", "price": 1500000, "originalPrice": 1800000, "image": "anhdefault.jpg", "description": "Áo măng tô dạ phong cách Hàn.", "categoryId": "cat_ao", "rating": 4.9, "inStock": true, "availableSizes": ["S", "M", "L"] },
+    { "id": "46", "name": "Quần Kaki Ống Suông", "price": 350000, "originalPrice": 420000, "image": "anhdefault.jpg", "description": "Kaki dáng suông dễ mặc cho mọi dáng.", "categoryId": "cat_quan", "rating": 4.4, "inStock": true, "availableSizes": ["S", "M", "L"] },
+    { "id": "47", "name": "Quần Đùi Thể Thao", "price": 150000, "originalPrice": 200000, "image": "anhdefault.jpg", "description": "Quần đùi chạy bộ siêu nhẹ.", "categoryId": "cat_quan", "rating": 4.8, "inStock": true, "availableSizes": ["S", "M", "L"] },
+    { "id": "48", "name": "Quần Jean Ống Loe", "price": 490000, "originalPrice": 580000, "image": "anhdefault.jpg", "description": "Quần jean loe nam thời trang 90s.", "categoryId": "cat_quan", "rating": 4.5, "inStock": true, "availableSizes": ["S", "M", "L"] },
+    { "id": "49", "name": "Quần Tây Nam Xếp Ly", "price": 520000, "originalPrice": 650000, "image": "anhdefault.jpg", "description": "Quần tây vintage có đường xếp ly.", "categoryId": "cat_quan", "rating": 4.7, "inStock": false, "availableSizes": ["S", "M", "L"] },
+    { "id": "50", "name": "Quần Linen Mùa Hè", "price": 280000, "originalPrice": 350000, "image": "anhdefault.jpg", "description": "Quần đũi mát mẻ cho những ngày oi bức.", "categoryId": "cat_quan", "rating": 4.3, "inStock": true, "availableSizes": ["S", "M", "L"] },
+    { "id": "51", "name": "Cà Vạt Nam Bản Nhỏ", "price": 120000, "originalPrice": 160000, "image": "anhdefault.jpg", "description": "Cà vạt lụa trơn lịch sự.", "categoryId": "cat_phukien", "rating": 4.6, "inStock": true, "availableSizes": ["Free Size"] },
+    { "id": "52", "name": "Túi Đeo Chéo Nam", "price": 220000, "originalPrice": 290000, "image": "anhdefault.jpg", "description": "Túi vải canvas dạo phố.", "categoryId": "cat_phukien", "rating": 4.8, "inStock": true, "availableSizes": ["Free Size"] },
+    { "id": "53", "name": "Balo Laptop 15.6 inch", "price": 450000, "originalPrice": 600000, "image": "anhdefault.jpg", "description": "Balo chống nước, đệm lưng êm ái.", "categoryId": "cat_phukien", "rating": 4.9, "inStock": true, "availableSizes": ["Free Size"] },
+    { "id": "54", "name": "Vòng Tay Da Đính Đá", "price": 80000, "originalPrice": 120000, "image": "anhdefault.jpg", "description": "Phụ kiện vòng tay nam bụi bặm.", "categoryId": "cat_phukien", "rating": 4.2, "inStock": true, "availableSizes": ["Free Size"] },
+    { "id": "55", "name": "Móc Khóa Kim Loại", "price": 45000, "originalPrice": 70000, "image": "anhdefault.jpg", "description": "Móc khóa ô tô thiết kế sang trọng.", "categoryId": "cat_phukien", "rating": 4.5, "inStock": true, "availableSizes": ["Free Size"] }
   ],
   "carts": [
     {
       "id": "1",
       "userId": 2,
       "items": [
-        {
-          "productId": 1,
-          "quantity": 2,
-          "price": 150000
-        },
-        {
-          "productId": 21,
-          "quantity": 1,
-          "price": 50000
-        }
+        { "productId": 1, "quantity": 2, "price": 150000, "size": "M" },
+        { "productId": 21, "quantity": 1, "price": 50000, "size": "Free Size" }
       ]
     }
   ],
   "orders": [
-    {
-      "id": 1,
-      "userId": 2,
-      "items": [
-        {
-          "productId": 3,
-          "quantity": 1,
-          "price": 350000
-        },
-        {
-          "productId": 13,
-          "quantity": 1,
-          "price": 500000
-        }
-      ],
-      "totalAmount": 850000,
-      "shippingAddress": "123 Đường Cầu Giấy, Hà Nội",
-      "status": "delivered",
-      "date": "2026-02-25T07:21:51.686Z",
-      "customerInfo": {
-        "fullName": "abc",
-        "phone": "0918273645"
-      }
-    },
-    {
-      "id": 2,
-      "userId": 2,
-      "items": [
-        {
-          "productId": 5,
-          "quantity": 1,
-          "price": 450000
-        }
-      ],
-      "totalAmount": 450000,
-      "shippingAddress": "45 Lê Lợi, Quận 1, TP. HCM",
-      "status": "processing",
-      "date": "2026-02-28T07:21:51.686Z",
-      "customerInfo": {
-        "fullName": "abc",
-        "phone": "0918273645"
-      }
-    },
-    {
-      "userId": 2,
-      "items": [
-        {
-          "productId": 1,
-          "quantity": 1,
-          "price": 150000
-        },
-        {
-          "productId": 21,
-          "quantity": 3,
-          "price": 50000
-        }
-      ],
-      "totalAmount": 300000,
-      "shippingAddress": "test",
-      "customerInfo": {
-        "fullName": "abc",
-        "phone": "0918273645"
-      },
-      "status": "processing",
-      "date": "2026-03-02T07:21:51.686Z",
-      "id": 3
-    }
+    { "id": 1, "userId": 2, "totalAmount": 450000, "shippingAddress": "123 Đường Cầu Giấy, Hà Nội", "status": "delivered", "date": "2026-02-15T09:15:00.000Z", "customerInfo": { "fullName": "Lê Đức Nam", "phone": "09020999905" }, "items": [{ "productId": 1, "quantity": 2, "price": 150000, "size": "M" }, { "productId": 25, "quantity": 1, "price": 150000, "size": "Free Size" }] },
+    { "id": 2, "userId": 4, "totalAmount": 1200000, "shippingAddress": "45 Lê Lợi, Quận 1, TP. HCM", "status": "delivered", "date": "2026-02-16T14:30:00.000Z", "customerInfo": { "fullName": "Hiếu Vũ", "phone": "0933445566" }, "items": [{ "productId": 8, "quantity": 1, "price": 850000, "size": "L" }, { "productId": 3, "quantity": 1, "price": 350000, "size": "M" }] },
+    { "id": 3, "userId": 5, "totalAmount": 350000, "shippingAddress": "78 Nguyễn Trãi, Thanh Xuân, HN", "status": "delivered", "date": "2026-02-18T10:20:00.000Z", "customerInfo": { "fullName": "Hoang Tran", "phone": "0977889900" }, "items": [{ "productId": 3, "quantity": 1, "price": 350000, "size": "L" }] },
+    { "id": 4, "userId": 2, "totalAmount": 850000, "shippingAddress": "123 Đường Cầu Giấy, Hà Nội", "status": "delivered", "date": "2026-02-20T07:21:51.686Z", "customerInfo": { "fullName": "Lê Đức Nam", "phone": "09020999905" }, "items": [{ "productId": 8, "quantity": 1, "price": 850000, "size": "M" }] },
+    { "id": 5, "userId": 6, "totalAmount": 2150000, "shippingAddress": "12 Tôn Đức Thắng, Đống Đa, HN", "status": "delivered", "date": "2026-02-21T16:45:00.000Z", "customerInfo": { "fullName": "Lê Thắng", "phone": "0977889900" }, "items": [{ "productId": 41, "quantity": 1, "price": 1200000, "size": "L" }, { "productId": 8, "quantity": 1, "price": 850000, "size": "L" }, { "productId": 9, "quantity": 1, "price": 100000, "size": "M" }] },
+    { "id": 6, "userId": 4, "totalAmount": 550000, "shippingAddress": "45 Lê Lợi, Quận 1, TP. HCM", "status": "delivered", "date": "2026-02-23T11:10:00.000Z", "customerInfo": { "fullName": "Hiếu Vũ", "phone": "0933445566" }, "items": [{ "productId": 20, "quantity": 1, "price": 550000, "size": "M" }] },
+    { "id": 7, "userId": 3, "totalAmount": 150000, "shippingAddress": "99 Kim Mã, Ba Đình, HN", "status": "delivered", "date": "2026-02-25T08:00:00.000Z", "customerInfo": { "fullName": "Trần Đức Anh", "phone": "0912345678" }, "items": [{ "productId": 1, "quantity": 1, "price": 150000, "size": "S" }] },
+    { "id": 8, "userId": 2, "totalAmount": 450000, "shippingAddress": "45 Lê Lợi, Quận 1, TP. HCM", "status": "processing", "date": "2026-02-28T07:21:51.686Z", "customerInfo": { "fullName": "Lê Đức Nam", "phone": "09020999905" }, "items": [{ "productId": 5, "quantity": 1, "price": 450000, "size": "L" }] },
+    { "id": 9, "userId": 5, "totalAmount": 980000, "shippingAddress": "78 Nguyễn Trãi, Thanh Xuân, HN", "status": "processing", "date": "2026-03-01T09:30:00.000Z", "customerInfo": { "fullName": "Hoang Tran", "phone": "0977889900" }, "items": [{ "productId": 6, "quantity": 1, "price": 600000, "size": "L" }, { "productId": 15, "quantity": 1, "price": 380000, "size": "L" }] },
+    { "id": 10, "userId": 6, "totalAmount": 300000, "shippingAddress": "12 Tôn Đức Thắng, Đống Đa, HN", "status": "processing", "date": "2026-03-02T07:21:51.686Z", "customerInfo": { "fullName": "Lê Thắng", "phone": "0977889900" }, "items": [{ "productId": 14, "quantity": 1, "price": 300000, "size": "M" }] },
+    { "id": 11, "userId": 4, "totalAmount": 1750000, "shippingAddress": "45 Lê Lợi, Quận 1, TP. HCM", "status": "pending", "date": "2026-03-03T15:20:00.000Z", "customerInfo": { "fullName": "Hiếu Vũ", "phone": "0933445566" }, "items": [{ "productId": 45, "quantity": 1, "price": 1500000, "size": "M" }, { "productId": 17, "quantity": 1, "price": 250000, "size": "M" }] },
+    { "id": 12, "userId": 2, "totalAmount": 620000, "shippingAddress": "123 Đường Cầu Giấy, Hà Nội", "status": "pending", "date": "2026-03-04T10:05:00.000Z", "customerInfo": { "fullName": "Lê Đức Nam", "phone": "09020999905" }, "items": [{ "productId": 18, "quantity": 1, "price": 420000, "size": "L" }, { "productId": 29, "quantity": 1, "price": 200000, "size": "Free Size" }] },
+    { "id": 13, "userId": 2, "totalAmount": 1200000, "shippingAddress": "123 Đường Cầu Giấy, Hà Nội", "status": "delivered", "date": "2023-05-10T10:30:00.000Z", "customerInfo": { "fullName": "Lê Đức Nam", "phone": "09020999905" }, "items": [{ "productId": 41, "quantity": 1, "price": 1200000, "size": "L" }] },
+    { "id": 14, "userId": 3, "totalAmount": 300000, "shippingAddress": "99 Kim Mã, Ba Đình, HN", "status": "delivered", "date": "2023-11-20T14:00:00.000Z", "customerInfo": { "fullName": "Trần Đức Anh", "phone": "0912345678" }, "items": [{ "productId": 28, "quantity": 1, "price": 300000, "size": "Free Size" }] },
+    { "id": 15, "userId": 4, "totalAmount": 2500000, "shippingAddress": "45 Lê Lợi, Quận 1, TP. HCM", "status": "delivered", "date": "2024-01-15T08:45:00.000Z", "customerInfo": { "fullName": "Hiếu Vũ", "phone": "0933445566" }, "items": [{ "productId": 45, "quantity": 1, "price": 1500000, "size": "M" }, { "productId": 8, "quantity": 1, "price": 850000, "size": "L" }, { "productId": 25, "quantity": 1, "price": 150000, "size": "Free Size" }] },
+    { "id": 16, "userId": 5, "totalAmount": 150000, "shippingAddress": "78 Nguyễn Trãi, Thanh Xuân, HN", "status": "delivered", "date": "2024-08-05T16:20:00.000Z", "customerInfo": { "fullName": "Hoang Tran", "phone": "0977889900" }, "items": [{ "productId": 2, "quantity": 1, "price": 150000, "size": "M" }] },
+    { "id": 17, "userId": 6, "totalAmount": 890000, "shippingAddress": "12 Tôn Đức Thắng, Đống Đa, HN", "status": "delivered", "date": "2024-12-12T09:00:00.000Z", "customerInfo": { "fullName": "Lê Thắng", "phone": "0977889900" }, "items": [{ "productId": 6, "quantity": 1, "price": 600000, "size": "M" }, { "productId": 33, "quantity": 1, "price": 290000, "size": "L" }] },
+    { "id": 18, "userId": 2, "totalAmount": 1350000, "shippingAddress": "123 Đường Cầu Giấy, Hà Nội", "status": "delivered", "date": "2025-03-10T11:15:00.000Z", "customerInfo": { "fullName": "Lê Đức Nam", "phone": "09020999905" }, "items": [{ "productId": 8, "quantity": 1, "price": 850000, "size": "M" }, { "productId": 13, "quantity": 1, "price": 500000, "size": "M" }] },
+    { "id": 19, "userId": 4, "totalAmount": 420000, "shippingAddress": "45 Lê Lợi, Quận 1, TP. HCM", "status": "delivered", "date": "2025-07-22T13:40:00.000Z", "customerInfo": { "fullName": "Hiếu Vũ", "phone": "0933445566" }, "items": [{ "productId": 35, "quantity": 1, "price": 420000, "size": "M" }] },
+    { "id": 20, "userId": 3, "totalAmount": 760000, "shippingAddress": "99 Kim Mã, Ba Đình, HN", "status": "delivered", "date": "2025-11-29T10:00:00.000Z", "customerInfo": { "fullName": "Trần Đức Anh", "phone": "0912345678" }, "items": [{ "productId": 16, "quantity": 1, "price": 480000, "size": "M" }, { "productId": 10, "quantity": 1, "price": 280000, "size": "S" }] }
   ]
 }
