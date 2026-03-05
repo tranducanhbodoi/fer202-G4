@@ -15,7 +15,7 @@ const Login = () => {
 
         try {
             const response = await fetch(
-                `http://localhost:3001/users?email=${email}&password=${password}`
+                `http://localhost:9999/users?email=${email}&password=${password}`
             );
             const users = await response.json();
 
