@@ -1,0 +1,496 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "admin@gmail.com",
+      "password": "password123",
+      "fullName": "Quản Trị Viên",
+      "role": "admin",
+      "phone": "0901234567"
+    },
+    {
+      "id": "2",
+      "email": "tranducanh@gmail.com",
+      "password": "password123",
+      "fullName": "Trần Đức Anh",
+      "role": "user",
+      "phone": "0912345678"
+    },
+    {
+      "id": "3",
+      "email": "ducnamle432@gmail.com",
+      "password": "password123",
+      "fullName": "Lê Đức Nam",
+      "role": "user",
+      "phone": "09020999905"
+    },
+    {
+      "id": "4",
+      "email": "hieuvu@gmail.com",
+      "password": "password123",
+      "fullName": "Hiếu Vũ",
+      "role": "user",
+      "phone": "0933445566"
+    },
+    {
+      "id": "5",
+      "email": "hoangtran@gmail.com",
+      "password": "password123",
+      "fullName": "Hoang Tran",
+      "role": "user",
+      "phone": "0977889900"
+    },
+    {
+      "id": "6",
+      "email": "lethang@gmail.com",
+      "password": "password123",
+      "fullName": "Lê Thắng",
+      "role": "user",
+      "phone": "0977889900"
+    },
+    {
+      "id": "c12c",
+      "email": "ducanhtran507@gmail.com",
+      "password": "tranducanh2005",
+      "fullName": "",
+      "phone": "",
+      "role": "user"
+    }
+  ],
+  "categories": [
+    {
+      "id": "cat_ao",
+      "name": "Áo Thời Trang",
+      "slug": "ao-thoi-trang"
+    },
+    {
+      "id": "cat_quan",
+      "name": "Quần Các Loại",
+      "slug": "quan-cac-loai"
+    },
+    {
+      "id": "cat_phukien",
+      "name": "Phụ Kiện (Khăn, Tất, Mũ)",
+      "slug": "phu-kien"
+    }
+  ],
+  "products": [
+    {
+      "id": "1",
+      "name": "Áo Thun Basic Trắng",
+      "price": 150000,
+      "originalPrice": 200000,
+      "image": "https://placehold.co/400x400?text=Ao+Thun+Trang",
+      "description": "Áo thun cotton 100% thoáng mát, form rộng.",
+      "categoryId": "cat_ao",
+      "rating": 4.5,
+      "inStock": true
+    },
+    {
+      "id": "2",
+      "name": "Áo Thun Basic Đen",
+      "price": 150000,
+      "originalPrice": 200000,
+      "image": "https://placehold.co/400x400?text=Ao+Thun+Den",
+      "description": "Áo thun màu đen huyền bí, dễ phối đồ.",
+      "categoryId": "cat_ao",
+      "rating": 4.8,
+      "inStock": true
+    },
+    {
+      "id": "3",
+      "name": "Áo Sơ Mi Oxford",
+      "price": 350000,
+      "originalPrice": 400000,
+      "image": "https://placehold.co/400x400?text=So+Mi+Oxford",
+      "description": "Áo sơ mi vải Oxford dày dặn, thích hợp công sở.",
+      "categoryId": "cat_ao",
+      "rating": 4.2,
+      "inStock": true
+    },
+    {
+      "id": "4",
+      "name": "Áo Polo Nam",
+      "price": 250000,
+      "originalPrice": 300000,
+      "image": "https://placehold.co/400x400?text=Ao+Polo",
+      "description": "Áo Polo lịch lãm, co giãn 4 chiều.",
+      "categoryId": "cat_ao",
+      "rating": 4,
+      "inStock": true
+    },
+    {
+      "id": "5",
+      "name": "Áo Hoodie Oversize",
+      "price": 450000,
+      "originalPrice": 550000,
+      "image": "https://placehold.co/400x400?text=Hoodie",
+      "description": "Áo Hoodie nỉ bông ấm áp cho mùa đông.",
+      "categoryId": "cat_ao",
+      "rating": 4.9,
+      "inStock": true
+    },
+    {
+      "id": "6",
+      "name": "Áo Khoác Denim",
+      "price": 600000,
+      "originalPrice": 750000,
+      "image": "https://placehold.co/400x400?text=Khoac+Denim",
+      "description": "Áo khoác bò phong cách bụi bặm.",
+      "categoryId": "cat_ao",
+      "rating": 4.7,
+      "inStock": true
+    },
+    {
+      "id": "7",
+      "name": "Áo Len Cổ Lọ",
+      "price": 320000,
+      "originalPrice": 400000,
+      "image": "https://placehold.co/400x400?text=Ao+Len",
+      "description": "Áo len mỏng nhẹ, giữ nhiệt tốt.",
+      "categoryId": "cat_ao",
+      "rating": 4.3,
+      "inStock": false
+    },
+    {
+      "id": "8",
+      "name": "Áo Vest Blaze",
+      "price": 850000,
+      "originalPrice": 1200000,
+      "image": "https://placehold.co/400x400?text=Blazer",
+      "description": "Áo Vest phong cách Hàn Quốc trẻ trung.",
+      "categoryId": "cat_ao",
+      "rating": 5,
+      "inStock": true
+    },
+    {
+      "id": "9",
+      "name": "Áo Ba Lỗ Thể Thao",
+      "price": 100000,
+      "originalPrice": 150000,
+      "image": "https://placehold.co/400x400?text=Ba+Lo",
+      "description": "Áo ba lỗ tập gym, thoáng khí.",
+      "categoryId": "cat_ao",
+      "rating": 4.1,
+      "inStock": true
+    },
+    {
+      "id": "10",
+      "name": "Áo Flannel Caro",
+      "price": 280000,
+      "originalPrice": 350000,
+      "image": "https://placehold.co/400x400?text=Flannel",
+      "description": "Áo sơ mi kẻ caro phong cách đường phố.",
+      "categoryId": "cat_ao",
+      "rating": 4.6,
+      "inStock": true
+    },
+    {
+      "id": "11",
+      "name": "Quần Jean Slim Fit",
+      "price": 450000,
+      "originalPrice": 500000,
+      "image": "https://placehold.co/400x400?text=Jean+Slim",
+      "description": "Quần Jean ôm dáng, co giãn tốt.",
+      "categoryId": "cat_quan",
+      "rating": 4.5,
+      "inStock": true
+    },
+    {
+      "id": "12",
+      "name": "Quần Short Kaki",
+      "price": 220000,
+      "originalPrice": 280000,
+      "image": "https://placehold.co/400x400?text=Short+Kaki",
+      "description": "Quần short ngắn năng động mùa hè.",
+      "categoryId": "cat_quan",
+      "rating": 4.4,
+      "inStock": true
+    },
+    {
+      "id": "13",
+      "name": "Quần Âu Công Sở",
+      "price": 500000,
+      "originalPrice": 600000,
+      "image": "https://placehold.co/400x400?text=Quan+Au",
+      "description": "Quần tây vải không nhăn, dáng đứng.",
+      "categoryId": "cat_quan",
+      "rating": 4.8,
+      "inStock": true
+    },
+    {
+      "id": "14",
+      "name": "Quần Jogger Nỉ",
+      "price": 300000,
+      "originalPrice": 350000,
+      "image": "https://placehold.co/400x400?text=Jogger",
+      "description": "Quần Jogger bo gấu, phong cách thể thao.",
+      "categoryId": "cat_quan",
+      "rating": 4.2,
+      "inStock": true
+    },
+    {
+      "id": "15",
+      "name": "Quần Baggy Ống Rộng",
+      "price": 380000,
+      "originalPrice": 450000,
+      "image": "https://placehold.co/400x400?text=Baggy",
+      "description": "Quần ống rộng thoải mái, che khuyết điểm.",
+      "categoryId": "cat_quan",
+      "rating": 4.6,
+      "inStock": true
+    },
+    {
+      "id": "16",
+      "name": "Quần Jean Rách Gối",
+      "price": 480000,
+      "originalPrice": 550000,
+      "image": "https://placehold.co/400x400?text=Jean+Rach",
+      "description": "Quần Jean rách gối cá tính.",
+      "categoryId": "cat_quan",
+      "rating": 4.3,
+      "inStock": true
+    },
+    {
+      "id": "17",
+      "name": "Quần Short Jean",
+      "price": 250000,
+      "originalPrice": 300000,
+      "image": "https://placehold.co/400x400?text=Short+Jean",
+      "description": "Quần soóc bò bền đẹp.",
+      "categoryId": "cat_quan",
+      "rating": 4.1,
+      "inStock": true
+    },
+    {
+      "id": "18",
+      "name": "Quần Chinos",
+      "price": 420000,
+      "originalPrice": 500000,
+      "image": "https://placehold.co/400x400?text=Chinos",
+      "description": "Quần Chinos màu be dễ phối đồ.",
+      "categoryId": "cat_quan",
+      "rating": 4.7,
+      "inStock": true
+    },
+    {
+      "id": "19",
+      "name": "Quần Bơi Nam",
+      "price": 180000,
+      "originalPrice": 250000,
+      "image": "https://placehold.co/400x400?text=Quan+Boi",
+      "description": "Quần bơi chất liệu mau khô.",
+      "categoryId": "cat_quan",
+      "rating": 4,
+      "inStock": false
+    },
+    {
+      "id": "20",
+      "name": "Quần Cargo Túi Hộp",
+      "price": 550000,
+      "originalPrice": 650000,
+      "image": "https://placehold.co/400x400?text=Cargo",
+      "description": "Quần túi hộp hầm hố, trend năm nay.",
+      "categoryId": "cat_quan",
+      "rating": 4.9,
+      "inStock": true
+    },
+    {
+      "id": "21",
+      "name": "Tất Cổ Cao (Set 3 đôi)",
+      "price": 50000,
+      "originalPrice": 80000,
+      "image": "https://placehold.co/400x400?text=Tat+Co+Cao",
+      "description": "Tất cotton khử mùi, cổ cao vintage.",
+      "categoryId": "cat_phukien",
+      "rating": 4.8,
+      "inStock": true
+    },
+    {
+      "id": "22",
+      "name": "Tất Cổ Thấp (Set 5 đôi)",
+      "price": 60000,
+      "originalPrice": 90000,
+      "image": "https://placehold.co/400x400?text=Tat+Co+Thap",
+      "description": "Tất lười đi giày sneaker.",
+      "categoryId": "cat_phukien",
+      "rating": 4.6,
+      "inStock": true
+    },
+    {
+      "id": "23",
+      "name": "Khăn Choàng Len",
+      "price": 120000,
+      "originalPrice": 180000,
+      "image": "https://placehold.co/400x400?text=Khan+Len",
+      "description": "Khăn len dài, giữ ấm cực tốt.",
+      "categoryId": "cat_phukien",
+      "rating": 4.5,
+      "inStock": true
+    },
+    {
+      "id": "24",
+      "name": "Khăn Lụa Vuông",
+      "price": 90000,
+      "originalPrice": 150000,
+      "image": "https://placehold.co/400x400?text=Khan+Lua",
+      "description": "Khăn lụa phụ kiện buộc cổ hoặc túi xách.",
+      "categoryId": "cat_phukien",
+      "rating": 4.3,
+      "inStock": true
+    },
+    {
+      "id": "25",
+      "name": "Mũ Lưỡi Trai Basic",
+      "price": 150000,
+      "originalPrice": 200000,
+      "image": "https://placehold.co/400x400?text=Mu+Cap",
+      "description": "Mũ lưỡi trai form cứng cáp.",
+      "categoryId": "cat_phukien",
+      "rating": 4.7,
+      "inStock": true
+    },
+    {
+      "id": "26",
+      "name": "Mũ Bucket",
+      "price": 130000,
+      "originalPrice": 180000,
+      "image": "https://placehold.co/400x400?text=Mu+Bucket",
+      "description": "Mũ tai bèo phong cách đường phố.",
+      "categoryId": "cat_phukien",
+      "rating": 4.4,
+      "inStock": true
+    },
+    {
+      "id": "27",
+      "name": "Thắt Lưng Da",
+      "price": 250000,
+      "originalPrice": 350000,
+      "image": "https://placehold.co/400x400?text=That+Lung",
+      "description": "Thắt lưng da bò thật 100%.",
+      "categoryId": "cat_phukien",
+      "rating": 4.8,
+      "inStock": true
+    },
+    {
+      "id": "28",
+      "name": "Ví Da Nam",
+      "price": 300000,
+      "originalPrice": 450000,
+      "image": "https://placehold.co/400x400?text=Vi+Da",
+      "description": "Ví da nam nhỏ gọn, nhiều ngăn.",
+      "categoryId": "cat_phukien",
+      "rating": 4.9,
+      "inStock": true
+    },
+    {
+      "id": "29",
+      "name": "Kính Mát Thời Trang",
+      "price": 200000,
+      "originalPrice": 300000,
+      "image": "https://placehold.co/400x400?text=Kinh+Mat",
+      "description": "Kính râm chống tia UV.",
+      "categoryId": "cat_phukien",
+      "rating": 4.2,
+      "inStock": true
+    },
+    {
+      "id": "30",
+      "name": "Găng Tay Mùa Đông",
+      "price": 80000,
+      "originalPrice": 120000,
+      "image": "https://placehold.co/400x400?text=Gang+Tay",
+      "description": "Găng tay len có thể dùng điện thoại cảm ứng.",
+      "categoryId": "cat_phukien",
+      "rating": 4.5,
+      "inStock": true
+    }
+  ],
+  "carts": [
+    {
+      "id": "1",
+      "userId": 2,
+      "items": [
+        {
+          "productId": 1,
+          "quantity": 2,
+          "price": 150000
+        },
+        {
+          "productId": 21,
+          "quantity": 1,
+          "price": 50000
+        }
+      ]
+    }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "userId": 2,
+      "items": [
+        {
+          "productId": 3,
+          "quantity": 1,
+          "price": 350000
+        },
+        {
+          "productId": 13,
+          "quantity": 1,
+          "price": 500000
+        }
+      ],
+      "totalAmount": 850000,
+      "shippingAddress": "123 Đường Cầu Giấy, Hà Nội",
+      "status": "delivered",
+      "date": "2026-02-25T07:21:51.686Z",
+      "customerInfo": {
+        "fullName": "abc",
+        "phone": "0918273645"
+      }
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "items": [
+        {
+          "productId": 5,
+          "quantity": 1,
+          "price": 450000
+        }
+      ],
+      "totalAmount": 450000,
+      "shippingAddress": "45 Lê Lợi, Quận 1, TP. HCM",
+      "status": "processing",
+      "date": "2026-02-28T07:21:51.686Z",
+      "customerInfo": {
+        "fullName": "abc",
+        "phone": "0918273645"
+      }
+    },
+    {
+      "userId": 2,
+      "items": [
+        {
+          "productId": 1,
+          "quantity": 1,
+          "price": 150000
+        },
+        {
+          "productId": 21,
+          "quantity": 3,
+          "price": 50000
+        }
+      ],
+      "totalAmount": 300000,
+      "shippingAddress": "test",
+      "customerInfo": {
+        "fullName": "abc",
+        "phone": "0918273645"
+      },
+      "status": "processing",
+      "date": "2026-03-02T07:21:51.686Z",
+      "id": 3
+    }
+  ]
+}
