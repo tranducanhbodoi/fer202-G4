@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer
       className="bg-dark text-light pt-5 pb-3 mt-5"
-      style={{ position: "fixed", left: 0, bottom: 0, width: "100%" }}
+      
     >
       <Container>
         <Row className="mb-4">

@@ -38,7 +38,7 @@ export default function Header() {
         <Navbar.Toggle />
         <Navbar.Collapse>
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/shop">
+            <Nav.Link as={Link} to="/productList">
               Catelog
             </Nav.Link>
 

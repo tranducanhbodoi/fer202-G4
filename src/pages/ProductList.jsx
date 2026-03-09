@@ -8,15 +8,22 @@ import {
   Col,
   Card,
   Badge,
-  ListGroup
+  ListGroup,
+  Form,
+  Pagination,
+  InputGroup
 } from "react-bootstrap";
 import { getProducts } from "../services/productService";
 import { getCategories } from "../services/categoryService";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function ProductList() {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [sortProducts, setSortProducts] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const productPerPage = 9;
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -31,21 +38,136 @@ export default function ProductList() {
     fetchData();
   }, []);
 
+  const indexOfLastProduct = currentPage * productPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productPerPage;
+
+  const sortProductList = [...products].sort((product, nextProduct) => {
+    if (sortProducts === "fromHighRating") {
+      return nextProduct.rating - product.rating;
+    }
+    if (sortProducts === "fromLowRating") {
+      return product.rating - nextProduct.rating;
+    }
+    if (sortProducts === "fromHighestPrice") {
+      return nextProduct.price - product.price;
+    }
+    if (sortProducts === "fromLowestPrice") {
+      return product.price - nextProduct.price;
+    }
+    if (sortProducts === "fromNewProduct") {
+      return nextProduct.id - product.id;
+    }
+    if (sortProducts === "fromOldProduct") {
+      return product.id - nextProduct.id;
+    }
+    if (sortProducts === "fromAtoZ") {
+      return product.name.localeCompare(nextProduct.name, "vi");
+    }
+    if (sortProducts === "fromZtoA") {
+      return nextProduct.name.localeCompare(product.name, "vi");
+    }
+  });
+
+  const currentProducts = sortProductList.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct,
+  );
+
   return (
     <>
       <Header></Header>
       <Container>
-        <Row>
+        <Row className="p-5">
           <Col sm={3}>
             <ListGroup>
-              <ListGroup.Item>Cras justo odio</ListGroup.Item>
-              <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-              <ListGroup.Item>Morbi leo risus</ListGroup.Item>
-              <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
-              <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+              {categories.map((category, index) => (
+                <ListGroup.Item key={index} as={Link}>
+                  {category.name}
+                </ListGroup.Item>
+              ))}
             </ListGroup>
           </Col>
-          <Col sm={9}></Col>
+          <Col sm={9}>
+            <div>
+              <h3 className="fw-bold">Danh sách sản phẩm</h3>
+              <hr />
+              <div className="d-flex justify-content-end align-items-center gap-2 m-3">
+                <span>Phân loại theo:</span>
+                <Form.Select
+                  style={{ width: "200px" }}
+                  value={sortProducts}
+                  onChange={(event) => setSortProducts(event.target.value)}
+                >
+                  <option>Sắp xếp</option>
+                  <option value="fromAtoZ">Tên từ A đến Z</option>
+                  <option value="fromZtoA">Tên từ Z đến A</option>
+                  <option value="fromHighestPrice">Giá từ cao đến thấp</option>
+                  <option value="fromLowestPrice">Giá từ thấp đến cao</option>
+                  <option value="fromNewProduct">Từ sản phẩm mới nhất</option>
+                  <option value="fromOldProduct">Từ sản phẩm cũ nhất</option>
+                  <option value="fromHighRating">
+                    Đánh giá từ cao đến thấp
+                  </option>
+                  <option value="fromLowRating">
+                    Đánh giá từ thấp đến cao
+                  </option>
+                </Form.Select>
+              </div>
+            </div>
+
+            <Row>
+              {currentProducts.map((product, index) => (
+                <Col sm={4} key={index}>
+                  <Card
+                    style={{
+                      width: "18rem",
+                      height: "28rem",
+                      cursor: "pointer",
+                      textDecoration: "none",
+                    }}
+                    className="mb-4 shadow-sm"
+                    as={Link}
+                    to={`/products/${product.id}`}
+                  >
+                    <Card.Img variant="top" src={product.image}></Card.Img>
+                    <Card.Body className="text-center">
+                      <Card.Title>{product.name}</Card.Title>
+                      <Card.Text>{product.description}</Card.Text>
+                      <Card.Subtitle>
+                        <p>
+                          <span className="fs-4 fw-bold text-danger me-3">
+                            {product.price.toLocaleString()}₫
+                          </span>
+                          {"  "}
+                          <span
+                            className="text-muted me-2"
+                            style={{ textDecoration: "line-through" }}
+                          >
+                            {product.price.toLocaleString()}₫
+                          </span>
+                        </p>
+                      </Card.Subtitle>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              ))}
+            </Row>
+            <div className="d-flex justify-content-center mt-4">
+              <Pagination>
+                {[
+                  ...Array(Math.ceil(sortProductList.length / productPerPage)),
+                ].map((_, index) => (
+                  <Pagination.Item
+                    key={index + 1}
+                    active={index + 1 === currentPage}
+                    onClick={() => setCurrentPage(index + 1)}
+                  >
+                    {index + 1}
+                  </Pagination.Item>
+                ))}
+              </Pagination>
+            </div>
+          </Col>
         </Row>
       </Container>
       <Footer></Footer>

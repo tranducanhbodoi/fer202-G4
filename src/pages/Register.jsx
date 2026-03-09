@@ -33,7 +33,7 @@ const Register = () => {
 
     try {
       const checkResponse = await fetch(
-        `http://localhost:3001/users?email=${formData.email}`
+        `http://localhost:9999/users?email=${formData.email}`
       );
       const existingUsers = await checkResponse.json();
 
@@ -50,7 +50,7 @@ const Register = () => {
         role: "user",
       };
 
-      const response = await fetch("http://localhost:3001/users", {
+      const response = await fetch("http://localhost:9999/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newUser),
