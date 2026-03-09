@@ -54,15 +54,7 @@ export default function Header() {
               ))}
             </NavDropdown>
           </Nav>
-          <Nav className="flex-grow-1 ms-4">
-            <InputGroup className="w-75">
-              <Form.Control
-                type="text"
-                placeholder="Tìm Kiếm Tên Sản Phẩm ... "
-              ></Form.Control>
-              <Button variant="outline-secondary"> Search</Button>
-            </InputGroup>
-          </Nav>
+         
 
           <Nav>
             <Nav.Link as={Link} to="/cart">

@@ -11,7 +11,7 @@ import {
   ListGroup,
   Form,
   Pagination,
-  InputGroup
+  InputGroup,
 } from "react-bootstrap";
 import { getProducts } from "../services/productService";
 import { getCategories } from "../services/categoryService";
@@ -23,6 +23,7 @@ export default function ProductList() {
   const [categories, setCategories] = useState([]);
   const [sortProducts, setSortProducts] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [productsNameSearch, setProductsNameSearch] = useState("");
   const productPerPage = 9;
   useEffect(() => {
     const fetchData = async () => {
@@ -38,10 +39,14 @@ export default function ProductList() {
     fetchData();
   }, []);
 
-  const indexOfLastProduct = currentPage * productPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productPerPage;
+  const searchProducts = products.filter((product) => {
+    const matchProductsName = product.name
+      .toLowerCase()
+      .startsWith(productsNameSearch.toLocaleLowerCase());
+    return matchProductsName;
+  });
 
-  const sortProductList = [...products].sort((product, nextProduct) => {
+  const sortProductList = [...searchProducts].sort((product, nextProduct) => {
     if (sortProducts === "fromHighRating") {
       return nextProduct.rating - product.rating;
     }
@@ -68,6 +73,9 @@ export default function ProductList() {
     }
   });
 
+  const indexOfLastProduct = currentPage * productPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productPerPage;
+
   const currentProducts = sortProductList.slice(
     indexOfFirstProduct,
     indexOfLastProduct,
@@ -92,26 +100,43 @@ export default function ProductList() {
               <h3 className="fw-bold">Danh sách sản phẩm</h3>
               <hr />
               <div className="d-flex justify-content-end align-items-center gap-2 m-3">
-                <span>Phân loại theo:</span>
-                <Form.Select
-                  style={{ width: "200px" }}
-                  value={sortProducts}
-                  onChange={(event) => setSortProducts(event.target.value)}
-                >
-                  <option>Sắp xếp</option>
-                  <option value="fromAtoZ">Tên từ A đến Z</option>
-                  <option value="fromZtoA">Tên từ Z đến A</option>
-                  <option value="fromHighestPrice">Giá từ cao đến thấp</option>
-                  <option value="fromLowestPrice">Giá từ thấp đến cao</option>
-                  <option value="fromNewProduct">Từ sản phẩm mới nhất</option>
-                  <option value="fromOldProduct">Từ sản phẩm cũ nhất</option>
-                  <option value="fromHighRating">
-                    Đánh giá từ cao đến thấp
-                  </option>
-                  <option value="fromLowRating">
-                    Đánh giá từ thấp đến cao
-                  </option>
-                </Form.Select>
+                <Col md={6}>
+                  <InputGroup>
+                    <Form.Control
+                      type="text"
+                      placeholder="Tìm kiếm tên sản phẩm..."
+                      value={productsNameSearch}
+                      onChange={(event) =>
+                        setProductsNameSearch(event.target.value)
+                      }
+                    />
+                    <Button variant="outline-secondary">Search</Button>
+                  </InputGroup>
+                </Col>
+                <Col md={3} className="text-md-end">
+                  <Form.Label className="mb-0">Phân loại theo:</Form.Label>
+                </Col>
+
+                <Col md={3}>
+                  <Form.Select
+                    value={sortProducts}
+                    onChange={(event) => setSortProducts(event.target.value)}
+                  >
+                    <option value="">Sắp xếp</option>
+                    <option value="fromAtoZ">Tên từ A đến Z</option>
+                    <option value="fromZtoA">Tên từ Z đến A</option>
+                    <option value="fromHighestPrice">
+                      Giá từ cao đến thấp
+                    </option>
+                    <option value="fromLowestPrice">Giá từ thấp đến cao</option>
+                    <option value="fromNewProduct">Sản phẩm mới nhất</option>
+                    <option value="fromOldProduct">Sản phẩm cũ nhất</option>
+                    <option value="fromHighRating">
+                      Đánh giá cao đến thấp
+                    </option>
+                    <option value="fromLowRating">Đánh giá thấp đến cao</option>
+                  </Form.Select>
+                </Col>
               </div>
             </div>
 

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getProducts } from "../../services/productService";
 import { getCategories } from "../../services/categoryService";
 import { getUsers } from "../../services/userService";
+import Visualized from "./Visualized";
 
 const Dashboard = () => {
   const [stats, setStats] = useState({
@@ -58,6 +59,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+      <Visualized/>
     </div>
   );
 };
