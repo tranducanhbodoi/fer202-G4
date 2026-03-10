@@ -18,9 +18,7 @@ import Register from "./pages/Register";
 import Cart from "./pages/cart/Cart";
 import OrderHistory from "./pages/order/OrderHistory";
 import ProductDetail from "./pages/ProductDetail";
-import ProductList from "./pages/ProductList";
-// import VnpayReturn from "./pages/order/VnpayReturn";
-// import Checkout from "./pages/order/Checkout";
+
 
 function App() {
   return (
@@ -29,7 +27,6 @@ function App() {
        <Route path="/" element={<Navigate to="/home" replace />} />
         {/* ========== PUBLIC ROUTE ========== */}
         <Route path="/home" element={<Home></Home>} />
-        <Route path="/products" element={<ProductList />} /> 
         <Route path="/products/:id" element={<ProductDetail/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
