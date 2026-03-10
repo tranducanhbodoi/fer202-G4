@@ -161,7 +161,7 @@ export default function Home() {
             </div>
 
             <div className="text-center">
-              <Button>Xem tất cả</Button>
+             <Button as={Link} to="/products">Xem tất cả</Button>
             </div>
           </div>
 
