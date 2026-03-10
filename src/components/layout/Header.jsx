@@ -80,19 +80,26 @@ export default function Header() {
             </Nav.Link>
 
             {currentUser ? (
-              <>
-                <Nav.Link disabled className="text-light">
-                  Xin Chào {currentUser?.fullName || currentUser?.email}!
-                </Nav.Link>
-                <Nav.Link
+              <NavDropdown
+                title={`Xin chào, ${
+                  currentUser?.fullName || currentUser?.email
+                }`}
+                id="user-nav-dropdown"
+                align="end"
+              >
+                <NavDropdown.Item as={Link} to="/orders">
+                  Lịch sử đơn hàng
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item
                   onClick={() => {
                     localStorage.removeItem("user");
                     window.location.href = "/";
                   }}
                 >
-                  Đăng Xuất
-                </Nav.Link>
-              </>
+                  Đăng xuất
+                </NavDropdown.Item>
+              </NavDropdown>
             ) : (
               <>
                 <Nav.Link as={Link} to="/login">
