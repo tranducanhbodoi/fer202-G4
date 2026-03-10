@@ -11,12 +11,14 @@ const VnpayReturn = () => {
 
   useEffect(() => {
     const verifyPayment = async () => {
-      // Lấy các tham số từ URL mà VNPay trả về
+
+      // 2. Nếu chữ ký hợp lệ, kiểm tra kết quả thanh toán
       const vnp_ResponseCode = searchParams.get("vnp_ResponseCode");
 
       if (vnp_ResponseCode === "00") {
         // Thanh toán thành công
         // Lấy thông tin đơn hàng đã lưu tạm thời
+
         const pendingOrderJSON = sessionStorage.getItem('pendingOrder');
         if (pendingOrderJSON) {
           const pendingOrder = JSON.parse(pendingOrderJSON);

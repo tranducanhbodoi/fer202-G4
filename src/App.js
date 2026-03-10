@@ -10,8 +10,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Cart from "./pages/cart/Cart";
 import OrderHistory from "./pages/order/OrderHistory";
-// import VnpayReturn from "./pages/order/VnpayReturn";
-// import Checkout from "./pages/order/Checkout";
+import VnpayReturn from "./pages/order/VnpayReturn";
+import Checkout from "./pages/order/Checkout";
 
 function App() {
   return (
@@ -41,8 +41,8 @@ function App() {
         {/* ========== USER ROUTE ========== */}
           <Route path="/cart" element={<Cart />} />
           <Route path="/orders" element={<OrderHistory />} />
-          {/* <Route path="/checkout" element={<Checkout />} /> */}
-          {/* <Route path="/payment/vnpay_return" element={<VnpayReturn />} /> */}
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/payment/vnpay_return" element={<VnpayReturn />} />
 
         {/* ========== 404 PAGE ========== */}
         <Route

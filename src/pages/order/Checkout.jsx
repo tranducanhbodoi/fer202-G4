@@ -8,14 +8,13 @@ import {
   Button,
   ListGroup,
   Spinner,
-  Alert,
 } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import { getCartByUserId, clearCart } from "../../services/cartService";
 import { createOrder } from "../../services/orderService";
+
 const Checkout = () => {
-  // Giả sử userId được lấy từ context hoặc state quản lý đăng nhập.
-  // Ở đây ta dùng tạm userId = 2 để demo.
   const userId = 2;
 
   const [cart, setCart] = useState(null);
@@ -27,25 +26,23 @@ const Checkout = () => {
     phone: "",
     shippingAddress: "",
   });
-  const [paymentMethod, setPaymentMethod] = useState("cod"); // 'cod' or 'vnpay'
+  const [paymentMethod, setPaymentMethod] = useState("cod");
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCartData = async () => {
-      if (!userId) return;
       try {
         setLoading(true);
         const cartData = await getCartByUserId(userId);
+
         if (!cartData || cartData.items.length === 0) {
-          // Nếu giỏ hàng trống, chuyển về trang giỏ hàng
           navigate("/cart");
           return;
         }
         setCart(cartData);
       } catch (err) {
         setError("Không thể tải thông tin giỏ hàng.");
-        console.error(err);
       } finally {
         setLoading(false);
       }
@@ -58,7 +55,7 @@ const Checkout = () => {
     if (!cart) return 0;
     return cart.items.reduce(
       (total, item) => total + item.product.price * item.quantity,
-      0
+      0,
     );
   }, [cart]);
 
@@ -69,66 +66,105 @@ const Checkout = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!formData.fullName || !formData.phone || !formData.shippingAddress) {
-      alert("Vui lòng điền đầy đủ thông tin giao hàng.");
+      alert("Vui lòng điền đầy đủ thông tin.");
       return;
     }
 
     setIsSubmitting(true);
 
     if (paymentMethod === "cod") {
-      // Xử lý thanh toán khi nhận hàng (COD)
+      // Thanh toán COD
       try {
         const orderData = {
           userId,
-          items: cart.items.map(({ productId, quantity, price }) => ({ productId, quantity, price })),
+          items: cart.items.map(({ productId, quantity, price }) => ({
+            productId,
+            quantity,
+            price,
+          })),
           totalAmount,
           shippingAddress: formData.shippingAddress,
-          customerInfo: { fullName: formData.fullName, phone: formData.phone },
+          customerInfo: {
+            fullName: formData.fullName,
+            phone: formData.phone,
+          },
           paymentMethod: "cod",
           status: "processing",
           date: new Date().toISOString(),
         };
+
         await createOrder(orderData);
         await clearCart(userId);
+
         alert("Đặt hàng thành công!");
         navigate("/orders");
       } catch (err) {
-        setError("Đã xảy ra lỗi khi đặt hàng. Vui lòng thử lại.");
-        console.error("Lỗi khi tạo đơn hàng COD:", err);
+        setError("Lỗi tạo đơn hàng.");
         setIsSubmitting(false);
       }
-    } else if (paymentMethod === "vnpay") {
-      // Xử lý thanh toán qua VNPay
-      // 1. Chuẩn bị dữ liệu đơn hàng
-      const orderPayload = {
-        userId,
-        items: cart.items.map(({ productId, quantity, price }) => ({ productId, quantity, price })),
-        totalAmount,
-        shippingAddress: formData.shippingAddress,
-        customerInfo: { fullName: formData.fullName, phone: formData.phone },
-        paymentMethod: "vnpay",
-        status: "pending_payment", // Trạng thái chờ thanh toán, sẽ được cập nhật sau
-        date: new Date().toISOString(),
-      };
+    }
 
+    // =======================
+    // 🔥 THANH TOÁN VNPay
+    // =======================
+    if (paymentMethod === "vnpay") {
       try {
-        // 2. Lưu thông tin đơn hàng vào sessionStorage để xử lý sau khi VNPay trả về
-        sessionStorage.setItem('pendingOrder', JSON.stringify(orderPayload));
+        // Lưu đơn hàng tạm vào session để xử lý sau khi return
+        const orderPayload = {
+          userId,
+          items: cart.items.map(({ productId, quantity, price }) => ({
+            productId,
+            quantity,
+            price,
+          })),
+          totalAmount,
+          shippingAddress: formData.shippingAddress,
+          customerInfo: {
+            fullName: formData.fullName,
+            phone: formData.phone,
+          },
+          paymentMethod: "vnpay",
+          status: "pending_payment",
+          date: new Date().toISOString(),
+        };
 
-        // 3. Mô phỏng việc gọi backend để tạo URL thanh toán
-        const orderIdForVnpay = `${Date.now()}-${userId}`;
-        const returnUrl = new URL('http://localhost:3000/payment/vnpay_return');
-        returnUrl.searchParams.set('vnp_Amount', totalAmount);
-        returnUrl.searchParams.set('vnp_TxnRef', orderIdForVnpay);
-        returnUrl.searchParams.set('vnp_ResponseCode', '00'); // Mô phỏng thanh toán thành công
-        const paymentUrl = returnUrl.toString();
+        sessionStorage.setItem("pendingOrder", JSON.stringify(orderPayload));
 
-        // 4. Chuyển hướng người dùng đến cổng thanh toán
-        window.location.href = paymentUrl;
+        // Xử lý VNPay yêu cầu chuỗi không dấu
+        const sanitizedFullName = formData.fullName
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/đ/g, "d")
+          .replace(/Đ/g, "D");
+
+        const orderInfo = `Thanh toan don hang ${sanitizedFullName}`.replace(
+          /[^a-zA-Z0-9 ]/g,
+          "",
+        );
+
+        const orderId = `${Date.now()}${userId}`;
+
+        // Gọi backend tạo URL thanh toán
+        const response = await axios.post(
+          "http://localhost:1234/api/vnpay/create",
+          {
+            amount: totalAmount,
+            orderInfo,
+            orderId,
+            ipAddr: "127.0.0.1",
+          },
+        );
+
+        if (response.data.paymentUrl) {
+          window.location.href = response.data.paymentUrl;
+        } else {
+          throw new Error("Không nhận được paymentUrl");
+        }
       } catch (err) {
-        setError("Không thể tạo yêu cầu thanh toán. Vui lòng thử lại.");
-        console.error("Lỗi khi xử lý thanh toán VNPay:", err);
+        console.error(err);
+        setError("Không tạo được yêu cầu thanh toán VNPay.");
         setIsSubmitting(false);
       }
     }
@@ -138,19 +174,10 @@ const Checkout = () => {
     return (
       <Container className="text-center my-5">
         <Spinner animation="border" />
-        <h2 className="mt-3">Đang tải trang thanh toán...</h2>
+        <h2>Đang tải...</h2>
       </Container>
     );
   }
-
-  if (error) {
-    return (
-      <Container className="my-5">
-        <Alert variant="danger">{error}</Alert>
-      </Container>
-    );
-  }
-
   return (
     <Container className="my-5">
       <h1 className="mb-4">Thanh toán</h1>
@@ -162,15 +189,34 @@ const Checkout = () => {
               <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="fullName">
                   <Form.Label>Họ và tên</Form.Label>
-                  <Form.Control type="text" name="fullName" value={formData.fullName} onChange={handleInputChange} required />
+                  <Form.Control
+                    type="text"
+                    name="fullName"
+                    value={formData.fullName}
+                    onChange={handleInputChange}
+                    required
+                  />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="phone">
                   <Form.Label>Số điện thoại</Form.Label>
-                  <Form.Control type="tel" name="phone" value={formData.phone} onChange={handleInputChange} required />
+                  <Form.Control
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    required
+                  />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="shippingAddress">
                   <Form.Label>Địa chỉ giao hàng</Form.Label>
-                  <Form.Control as="textarea" rows={3} name="shippingAddress" value={formData.shippingAddress} onChange={handleInputChange} required />
+                  <Form.Control
+                    as="textarea"
+                    rows={3}
+                    name="shippingAddress"
+                    value={formData.shippingAddress}
+                    onChange={handleInputChange}
+                    required
+                  />
                 </Form.Group>
 
                 <hr />
@@ -193,8 +239,16 @@ const Checkout = () => {
                 />
                 <hr />
                 <div className="d-grid">
-                  <Button variant="primary" type="submit" disabled={isSubmitting}>
-                    {isSubmitting ? <Spinner as="span" animation="border" size="sm" /> : "Hoàn tất đơn hàng"}
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? (
+                      <Spinner as="span" animation="border" size="sm" />
+                    ) : (
+                      "Hoàn tất đơn hàng"
+                    )}
                   </Button>
                 </div>
               </Form>
@@ -206,9 +260,19 @@ const Checkout = () => {
             <Card.Header as="h5">Tóm tắt đơn hàng</Card.Header>
             <ListGroup variant="flush">
               {cart?.items.map((item) => (
-                <ListGroup.Item key={item.productId} className="d-flex justify-content-between">
-                  <span>{item.product.name} <small className="text-muted">&times;{item.quantity}</small></span>
-                  <span>{(item.product.price * item.quantity).toLocaleString("vi-VN")}</span>
+                <ListGroup.Item
+                  key={item.productId}
+                  className="d-flex justify-content-between"
+                >
+                  <span>
+                    {item.product.name}{" "}
+                    <small className="text-muted">&times;{item.quantity}</small>
+                  </span>
+                  <span>
+                    {(item.product.price * item.quantity).toLocaleString(
+                      "vi-VN",
+                    )}
+                  </span>
                 </ListGroup.Item>
               ))}
               <ListGroup.Item className="d-flex justify-content-between fw-bold fs-5">
