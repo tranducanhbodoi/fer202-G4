@@ -9,7 +9,7 @@ import {
   ListGroup,
   Spinner,
 } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { getCartByUserId, clearCart } from "../../services/cartService";
 import { createOrder } from "../../services/orderService";
@@ -17,7 +17,16 @@ import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
 
 const Checkout = () => {
-  const userId = 2;
+  const [user, setUser] = useState(() => {
+    const storedUser = localStorage.getItem("user");
+    try {
+      return storedUser ? JSON.parse(storedUser) : null;
+    } catch (error) {
+      console.error("Lỗi khi đọc thông tin người dùng từ localStorage:", error);
+      return null;
+    }
+  });
+  const userId = user ? user.id : null;
 
   const [cart, setCart] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -34,6 +43,11 @@ const Checkout = () => {
 
   useEffect(() => {
     const fetchCartData = async () => {
+      if (!userId) {
+        setLoading(false);
+        return;
+      }
+
       try {
         setLoading(true);
         const cartData = await getCartByUserId(userId);
@@ -180,6 +194,22 @@ const Checkout = () => {
       </Container>
     );
   }
+
+  if (!user) {
+    return (
+      <>
+        <Header />
+        <Container className="text-center my-5">
+          <h2>Vui lòng đăng nhập để tiến hành thanh toán</h2>
+          <Button as={Link} to="/login" variant="primary" className="mt-3">
+            Đi đến trang đăng nhập
+          </Button>
+        </Container>
+        <Footer />
+      </>
+    );
+  }
+
   return (
     <>
       <Header />

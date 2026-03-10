@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { Container, Alert, Spinner, Card, Button } from "react-bootstrap";
+import axios from "axios";
 import { createOrder } from "../../services/orderService";
 import { clearCart } from "../../services/cartService";
 
@@ -11,48 +12,66 @@ const VnpayReturn = () => {
 
   useEffect(() => {
     const verifyPayment = async () => {
+      try {
+        const queryParams = Object.fromEntries(searchParams.entries());
 
-      // 2. Nếu chữ ký hợp lệ, kiểm tra kết quả thanh toán
-      const vnp_ResponseCode = searchParams.get("vnp_ResponseCode");
+        if (Object.keys(queryParams).length === 0) {
+          setStatus("error");
+          setMessage("Không có thông tin giao dịch để xác thực.");
+          return;
+        }
 
-      if (vnp_ResponseCode === "00") {
-        // Thanh toán thành công
-        // Lấy thông tin đơn hàng đã lưu tạm thời
+        const response = await axios.get(
+          "http://localhost:1234/api/vnpay/return",
+          {
+            params: queryParams,
+          },
+        );
 
-        const pendingOrderJSON = sessionStorage.getItem('pendingOrder');
-        if (pendingOrderJSON) {
-          const pendingOrder = JSON.parse(pendingOrderJSON);
-          
-          try {
-            // Cập nhật trạng thái đơn hàng và tạo đơn hàng trong DB
-            const finalOrder = { ...pendingOrder, status: 'processing' };
-            await createOrder(finalOrder);
-            
-            // Xóa giỏ hàng
-            await clearCart(pendingOrder.userId);
+        const { code, message: rspMessage } = response.data;
 
-            // Xóa đơn hàng tạm
-            sessionStorage.removeItem('pendingOrder');
+        if (code === "00") {
+          // Giao dịch thành công
+          const pendingOrderJSON = sessionStorage.getItem("pendingOrder");
+          if (pendingOrderJSON) {
+            const pendingOrder = JSON.parse(pendingOrderJSON);
 
-            setStatus("success");
-            setMessage("Thanh toán và đặt hàng thành công! Cảm ơn bạn đã mua hàng.");
-          } catch (error) {
-            console.error("Lỗi khi tạo đơn hàng sau khi thanh toán:", error);
+            try {
+              const finalOrder = { ...pendingOrder, status: "processing" };
+              await createOrder(finalOrder);
+              await clearCart(pendingOrder.userId);
+              sessionStorage.removeItem("pendingOrder");
+
+              setStatus("success");
+              setMessage(
+                "Thanh toán và đặt hàng thành công! Cảm ơn bạn đã mua hàng.",
+              );
+            } catch (error) {
+              console.error("Lỗi khi tạo đơn hàng sau khi thanh toán:", error);
+              setStatus("error");
+              setMessage(
+                "Thanh toán thành công nhưng đã có lỗi xảy ra khi tạo đơn hàng. Vui lòng liên hệ hỗ trợ.",
+              );
+            }
+          } else {
             setStatus("error");
-            setMessage("Thanh toán thành công nhưng đã có lỗi xảy ra khi tạo đơn hàng. Vui lòng liên hệ hỗ trợ.");
+            setMessage(
+              "Không tìm thấy thông tin đơn hàng chờ xử lý. Giao dịch có thể đã được xử lý.",
+            );
           }
         } else {
+          // Giao dịch thất bại hoặc chữ ký không hợp lệ
           setStatus("error");
-          setMessage("Không tìm thấy thông tin đơn hàng chờ xử lý. Giao dịch không hợp lệ.");
+          setMessage(`Giao dịch thất bại: ${rspMessage} (Mã: ${code})`);
+          sessionStorage.removeItem("pendingOrder");
         }
-      } else {
-        // Thanh toán thất bại
+      } catch (error) {
+        console.error("Lỗi khi xác thực thanh toán:", error);
         setStatus("error");
         setMessage(
-          "Thanh toán không thành công. Vui lòng thử lại hoặc chọn phương thức thanh toán khác."
+          "Đã xảy ra lỗi trong quá trình xác thực thanh toán. Vui lòng liên hệ hỗ trợ.",
         );
-        // Xóa đơn hàng tạm nếu có
-        sessionStorage.removeItem('pendingOrder');
+        sessionStorage.removeItem("pendingOrder");
       }
     };
 

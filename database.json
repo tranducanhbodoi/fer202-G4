@@ -952,14 +952,9 @@
       "userId": "6",
       "items": [
         {
-          "productId": "8",
+          "productId": "3",
           "quantity": 1,
-          "price": 850000
-        },
-        {
-          "productId": "2",
-          "quantity": 1,
-          "price": 150000
+          "price": 350000
         }
       ],
       "id": "QypzgGf"
@@ -1057,6 +1052,31 @@
           "size": "M"
         }
       ]
+    },
+    {
+      "userId": "6",
+      "items": [
+        {
+          "productId": "8",
+          "quantity": 1,
+          "price": 850000
+        },
+        {
+          "productId": "2",
+          "quantity": 1,
+          "price": 150000
+        }
+      ],
+      "totalAmount": 1000000,
+      "shippingAddress": "dasd",
+      "customerInfo": {
+        "fullName": "jhgfds",
+        "phone": "0987654321"
+      },
+      "paymentMethod": "cod",
+      "status": "processing",
+      "date": "2026-03-10T04:48:06.776Z",
+      "id": "D75OWlM"
     }
   ]
 }

@@ -114,54 +114,66 @@ const Cart = () => {
 
   if (loading) {
     return (
-      <Container className="text-center my-5">
-        <Spinner animation="border" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </Spinner>
-        <h2 className="mt-3">Đang tải giỏ hàng...</h2>
-      </Container>
+      <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+        <Header />
+        <Container className="text-center my-5" style={{ flex: 1 }}>
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+          <h2 className="mt-3">Đang tải giỏ hàng...</h2>
+        </Container>
+        <Footer />
+      </div>
     );
   }
 
   if (!user) {
     return (
-      <>
+      <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
         <Header />
-        <Container className="text-center my-5">
+        <Container className="text-center my-5" style={{ flex: 1 }}>
           <h2>Vui lòng đăng nhập để xem giỏ hàng của bạn</h2>
           <Button as={Link} to="/login" variant="primary" className="mt-3">
             Đi đến trang đăng nhập
           </Button>
         </Container>
         <Footer />
-      </>
+      </div>
     );
   }
 
   if (error) {
     return (
-      <Container className="my-5">
-        <Alert variant="danger">{error}</Alert>
-      </Container>
+      <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+        <Header />
+        <Container className="my-5" style={{ flex: 1 }}>
+          <Alert variant="danger">{error}</Alert>
+        </Container>
+        <Footer />
+      </div>
     );
   }
 
   if (!cart || !cart.items || cart.items.length === 0) {
     return (
-      <Container className="text-center my-5">
-        <h2>Giỏ hàng của bạn đang trống</h2>
-        <p>Hãy khám phá các sản phẩm tuyệt vời của chúng tôi!</p>
-        <Button as={Link} to="/" variant="primary">
-          Tiếp tục mua sắm
-        </Button>
-      </Container>
+      <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+        <Header />
+        <Container className="text-center my-5" style={{ flex: 1 }}>
+          <h2>Giỏ hàng của bạn đang trống</h2>
+          <p>Hãy khám phá các sản phẩm tuyệt vời của chúng tôi!</p>
+          <Button as={Link} to="/" variant="primary">
+            Tiếp tục mua sắm
+          </Button>
+        </Container>
+        <Footer />
+      </div>
     );
   }
 
   return (
-    <>
+    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <Header />
-      <Container className="my-5">
+      <Container className="my-5" style={{ flex: 1 }}>
         <h1 className="mb-4">Giỏ hàng của bạn</h1>
         <Row>
           <Col lg={8}>
@@ -247,7 +259,7 @@ const Cart = () => {
         </Row>
       </Container>
       <Footer />
-    </>
+    </div>
   );
 };
 

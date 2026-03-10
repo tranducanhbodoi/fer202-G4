@@ -65,3 +65,33 @@ export const createPayment = (req, res) => {
 
   res.json({ paymentUrl });
 };
+
+export const verifyReturn = (req, res) => {
+  let vnp_Params = req.query;
+  const secureHash = vnp_Params["vnp_SecureHash"];
+
+  delete vnp_Params["vnp_SecureHash"];
+  delete vnp_Params["vnp_SecureHashType"];
+
+  vnp_Params = sortObject(vnp_Params);
+
+  const secretKey = process.env.VNP_SECRETKEY;
+  const signData = qs.stringify(vnp_Params, { encode: false });
+
+  const hmac = crypto.createHmac("sha512", secretKey);
+  const calculatedHash = hmac.update(signData).digest("hex");
+
+  const responseCode = vnp_Params["vnp_ResponseCode"];
+
+  if (secureHash === calculatedHash) {
+    // Chữ ký hợp lệ, bây giờ kiểm tra kết quả thanh toán
+    if (responseCode === "00") {
+      res.json({ code: "00", message: "Giao dịch thành công" });
+    } else {
+      res.json({ code: responseCode, message: "Giao dịch không thành công" });
+    }
+  } else {
+    // Chữ ký không hợp lệ
+    res.json({ code: "97", message: "Chữ ký không hợp lệ" });
+  }
+};
