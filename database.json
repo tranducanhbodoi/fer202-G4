@@ -55,6 +55,14 @@
       "fullName": "",
       "phone": "",
       "role": "user"
+    },
+    {
+      "id": "420f",
+      "email": "ducanhtran211110@gmail.com",
+      "password": "social_login_user",
+      "fullName": "Đức Anh Trần",
+      "phone": "",
+      "role": "user"
     }
   ],
   "categories": [
@@ -426,7 +434,7 @@
   ],
   "orders": [
     {
-      "id": 1,
+      "id": "1",
       "userId": 2,
       "items": [
         {
@@ -450,7 +458,7 @@
       }
     },
     {
-      "id": 2,
+      "id": "2",
       "userId": 2,
       "items": [
         {
@@ -490,7 +498,7 @@
       },
       "status": "processing",
       "date": "2026-03-02T07:21:51.686Z",
-      "id": 3
+      "id": "3"
     }
   ]
 }
