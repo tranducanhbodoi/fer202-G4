@@ -17,17 +17,29 @@ import {
   updateItemQuantity,
   removeItemFromCart,
 } from "../../services/cartService";
+import Header from "../../components/layout/Header";
+import Footer from "../../components/layout/Footer";
 
 const Cart = () => {
-  // Giả sử userId được lấy từ context hoặc state quản lý đăng nhập.
-  // Ở đây ta dùng tạm userId = 2 để demo.
-  const userId = 2;
+  // Lấy thông tin người dùng trực tiếp từ localStorage khi component render
+  const [user, setUser] = useState(() => {
+    const storedUser = localStorage.getItem("user");
+    try {
+      // Thử parse JSON, nếu lỗi thì trả về null
+      return storedUser ? JSON.parse(storedUser) : null;
+    } catch (error) {
+      console.error("Lỗi khi đọc thông tin người dùng từ localStorage:", error);
+      return null;
+    }
+  });
+  const userId = user ? user.id : null;
 
   const [cart, setCart] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const fetchCart = async () => {
+    if (!userId) return;
     try {
       setLoading(true);
       const cartData = await getCartByUserId(userId);
@@ -44,6 +56,8 @@ const Cart = () => {
   useEffect(() => {
     if (userId) {
       fetchCart();
+    } else {
+      setLoading(false);
     }
   }, [userId]);
 
@@ -55,7 +69,9 @@ const Cart = () => {
     const updatedCart = {
       ...cart,
       items: cart.items.map((item) =>
-        item.productId === productId ? { ...item, quantity: newQuantity } : item
+        item.productId === productId
+          ? { ...item, quantity: newQuantity }
+          : item,
       ),
     };
     setCart(updatedCart);
@@ -92,7 +108,7 @@ const Cart = () => {
     if (!cart || !cart.items) return 0;
     return cart.items.reduce(
       (total, item) => total + item.product.price * item.quantity,
-      0
+      0,
     );
   }, [cart]);
 
@@ -104,6 +120,21 @@ const Cart = () => {
         </Spinner>
         <h2 className="mt-3">Đang tải giỏ hàng...</h2>
       </Container>
+    );
+  }
+
+  if (!user) {
+    return (
+      <>
+        <Header />
+        <Container className="text-center my-5">
+          <h2>Vui lòng đăng nhập để xem giỏ hàng của bạn</h2>
+          <Button as={Link} to="/login" variant="primary" className="mt-3">
+            Đi đến trang đăng nhập
+          </Button>
+        </Container>
+        <Footer />
+      </>
     );
   }
 
@@ -128,38 +159,95 @@ const Cart = () => {
   }
 
   return (
-    <Container className="my-5">
-      <h1 className="mb-4">Giỏ hàng của bạn</h1>
-      <Row>
-        <Col lg={8}>
-          {cart.items.map((item) => (
-            <Card key={item.productId} className="mb-3">
-              <Row className="g-0">
-                <Col md={3} className="d-flex align-items-center justify-content-center p-2">
-                  <Image src={item.product.image} alt={item.product.name} fluid rounded />
-                </Col>
-                <Col md={9}>
-                  <Card.Body>
-                    <div className="d-flex justify-content-between">
-                      <Card.Title as="h5">{item.product.name}</Card.Title>
-                      <CloseButton onClick={() => handleRemoveItem(item.productId)} />
-                    </div>
-                    <Card.Text as="div"><small className="text-muted">Đơn giá: {item.product.price.toLocaleString("vi-VN")} VNĐ</small></Card.Text>
-                    <Form.Group as={Row} className="align-items-center my-2"><Form.Label column sm="auto">Số lượng:</Form.Label><Col sm="auto"><Form.Control type="number" value={item.quantity} onChange={(e) => handleUpdateQuantity(item.productId, e.target.value)} min="1" style={{ width: "80px" }} /></Col></Form.Group>
-                    <Card.Text as="div" className="mt-2"><b>Thành tiền: {(item.product.price * item.quantity).toLocaleString("vi-VN")} VNĐ</b></Card.Text>
-                  </Card.Body>
-                </Col>
-              </Row>
+    <>
+      <Header />
+      <Container className="my-5">
+        <h1 className="mb-4">Giỏ hàng của bạn</h1>
+        <Row>
+          <Col lg={8}>
+            {cart.items.map((item) => (
+              <Card key={item.productId} className="mb-3">
+                <Row className="g-0">
+                  <Col
+                    md={3}
+                    className="d-flex align-items-center justify-content-center p-2"
+                  >
+                    <Image
+                      src={item.product.image}
+                      alt={item.product.name}
+                      fluid
+                      rounded
+                    />
+                  </Col>
+                  <Col md={9}>
+                    <Card.Body>
+                      <div className="d-flex justify-content-between">
+                        <Card.Title as="h5">{item.product.name}</Card.Title>
+                        <CloseButton
+                          onClick={() => handleRemoveItem(item.productId)}
+                        />
+                      </div>
+                      <Card.Text as="div">
+                        <small className="text-muted">
+                          Đơn giá: {item.product.price.toLocaleString("vi-VN")}{" "}
+                          VNĐ
+                        </small>
+                      </Card.Text>
+                      <Form.Group as={Row} className="align-items-center my-2">
+                        <Form.Label column sm="auto">
+                          Số lượng:
+                        </Form.Label>
+                        <Col sm="auto">
+                          <Form.Control
+                            type="number"
+                            value={item.quantity}
+                            onChange={(e) =>
+                              handleUpdateQuantity(
+                                item.productId,
+                                e.target.value,
+                              )
+                            }
+                            min="1"
+                            style={{ width: "80px" }}
+                          />
+                        </Col>
+                      </Form.Group>
+                      <Card.Text as="div" className="mt-2">
+                        <b>
+                          Thành tiền:{" "}
+                          {(item.product.price * item.quantity).toLocaleString(
+                            "vi-VN",
+                          )}{" "}
+                          VNĐ
+                        </b>
+                      </Card.Text>
+                    </Card.Body>
+                  </Col>
+                </Row>
+              </Card>
+            ))}
+          </Col>
+          <Col lg={4}>
+            <Card className="sticky-top" style={{ top: "120px" }}>
+              <Card.Body>
+                <Card.Title as="h5">Tóm tắt đơn hàng</Card.Title>
+                <hr />
+                <div className="d-flex justify-content-between fw-bold fs-5">
+                  <span>Tổng cộng</span>
+                  <span>{totalAmount.toLocaleString("vi-VN")} VNĐ</span>
+                </div>
+                <div className="d-grid mt-4">
+                  <Button as={Link} to="/checkout" variant="primary" size="lg">
+                    Tiến hành thanh toán
+                  </Button>
+                </div>
+              </Card.Body>
             </Card>
-          ))}
-        </Col>
-        <Col lg={4}>
-          <Card className="sticky-top" style={{ top: '20px' }}>
-            <Card.Body><Card.Title as="h5">Tóm tắt đơn hàng</Card.Title><hr /><div className="d-flex justify-content-between fw-bold fs-5"><span>Tổng cộng</span><span>{totalAmount.toLocaleString("vi-VN")} VNĐ</span></div><div className="d-grid mt-4"><Button as={Link} to="/checkout" variant="primary" size="lg">Tiến hành thanh toán</Button></div></Card.Body>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
+          </Col>
+        </Row>
+      </Container>
+      <Footer />
+    </>
   );
 };
 

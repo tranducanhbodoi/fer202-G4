@@ -13,6 +13,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { getCartByUserId, clearCart } from "../../services/cartService";
 import { createOrder } from "../../services/orderService";
+import Header from "../../components/layout/Header";
+import Footer from "../../components/layout/Footer";
 
 const Checkout = () => {
   const userId = 2;
@@ -179,111 +181,117 @@ const Checkout = () => {
     );
   }
   return (
-    <Container className="my-5">
-      <h1 className="mb-4">Thanh toán</h1>
-      <Row>
-        <Col md={7}>
-          <Card>
-            <Card.Header as="h5">Thông tin giao hàng</Card.Header>
-            <Card.Body>
-              <Form onSubmit={handleSubmit}>
-                <Form.Group className="mb-3" controlId="fullName">
-                  <Form.Label>Họ và tên</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="fullName"
-                    value={formData.fullName}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="phone">
-                  <Form.Label>Số điện thoại</Form.Label>
-                  <Form.Control
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="shippingAddress">
-                  <Form.Label>Địa chỉ giao hàng</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    rows={3}
-                    name="shippingAddress"
-                    value={formData.shippingAddress}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </Form.Group>
+    <>
+      <Header />
+      <Container className="my-5">
+        <h1 className="mb-4">Thanh toán</h1>
+        <Row>
+          <Col md={7}>
+            <Card>
+              <Card.Header as="h5">Thông tin giao hàng</Card.Header>
+              <Card.Body>
+                <Form onSubmit={handleSubmit}>
+                  <Form.Group className="mb-3" controlId="fullName">
+                    <Form.Label>Họ và tên</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="fullName"
+                      value={formData.fullName}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </Form.Group>
+                  <Form.Group className="mb-3" controlId="phone">
+                    <Form.Label>Số điện thoại</Form.Label>
+                    <Form.Control
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </Form.Group>
+                  <Form.Group className="mb-3" controlId="shippingAddress">
+                    <Form.Label>Địa chỉ giao hàng</Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      rows={3}
+                      name="shippingAddress"
+                      value={formData.shippingAddress}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </Form.Group>
 
-                <hr />
-                <h5 className="mb-3">Phương thức thanh toán</h5>
-                <Form.Check
-                  type="radio"
-                  id="cod"
-                  name="paymentMethod"
-                  label="Thanh toán khi nhận hàng (COD)"
-                  checked={paymentMethod === "cod"}
-                  onChange={() => setPaymentMethod("cod")}
-                />
-                <Form.Check
-                  type="radio"
-                  id="vnpay"
-                  name="paymentMethod"
-                  label="Thanh toán qua VNPay"
-                  checked={paymentMethod === "vnpay"}
-                  onChange={() => setPaymentMethod("vnpay")}
-                />
-                <hr />
-                <div className="d-grid">
-                  <Button
-                    variant="primary"
-                    type="submit"
-                    disabled={isSubmitting}
+                  <hr />
+                  <h5 className="mb-3">Phương thức thanh toán</h5>
+                  <Form.Check
+                    type="radio"
+                    id="cod"
+                    name="paymentMethod"
+                    label="Thanh toán khi nhận hàng (COD)"
+                    checked={paymentMethod === "cod"}
+                    onChange={() => setPaymentMethod("cod")}
+                  />
+                  <Form.Check
+                    type="radio"
+                    id="vnpay"
+                    name="paymentMethod"
+                    label="Thanh toán qua VNPay"
+                    checked={paymentMethod === "vnpay"}
+                    onChange={() => setPaymentMethod("vnpay")}
+                  />
+                  <hr />
+                  <div className="d-grid">
+                    <Button
+                      variant="primary"
+                      type="submit"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? (
+                        <Spinner as="span" animation="border" size="sm" />
+                      ) : (
+                        "Hoàn tất đơn hàng"
+                      )}
+                    </Button>
+                  </div>
+                </Form>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col md={5}>
+            <Card>
+              <Card.Header as="h5">Tóm tắt đơn hàng</Card.Header>
+              <ListGroup variant="flush">
+                {cart?.items.map((item) => (
+                  <ListGroup.Item
+                    key={item.productId}
+                    className="d-flex justify-content-between"
                   >
-                    {isSubmitting ? (
-                      <Spinner as="span" animation="border" size="sm" />
-                    ) : (
-                      "Hoàn tất đơn hàng"
-                    )}
-                  </Button>
-                </div>
-              </Form>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col md={5}>
-          <Card>
-            <Card.Header as="h5">Tóm tắt đơn hàng</Card.Header>
-            <ListGroup variant="flush">
-              {cart?.items.map((item) => (
-                <ListGroup.Item
-                  key={item.productId}
-                  className="d-flex justify-content-between"
-                >
-                  <span>
-                    {item.product.name}{" "}
-                    <small className="text-muted">&times;{item.quantity}</small>
-                  </span>
-                  <span>
-                    {(item.product.price * item.quantity).toLocaleString(
-                      "vi-VN",
-                    )}
-                  </span>
+                    <span>
+                      {item.product.name}{" "}
+                      <small className="text-muted">
+                        &times;{item.quantity}
+                      </small>
+                    </span>
+                    <span>
+                      {(item.product.price * item.quantity).toLocaleString(
+                        "vi-VN",
+                      )}
+                    </span>
+                  </ListGroup.Item>
+                ))}
+                <ListGroup.Item className="d-flex justify-content-between fw-bold fs-5">
+                  <span>Tổng cộng</span>
+                  <span>{totalAmount.toLocaleString("vi-VN")} VNĐ</span>
                 </ListGroup.Item>
-              ))}
-              <ListGroup.Item className="d-flex justify-content-between fw-bold fs-5">
-                <span>Tổng cộng</span>
-                <span>{totalAmount.toLocaleString("vi-VN")} VNĐ</span>
-              </ListGroup.Item>
-            </ListGroup>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
+              </ListGroup>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+      <Footer />
+    </>
   );
 };
 

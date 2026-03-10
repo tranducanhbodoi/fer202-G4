@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   Container,
   Row,
@@ -12,16 +12,22 @@ import {
 } from "react-bootstrap";
 import { getProducts } from "../services/productService";
 import { getCategories } from "../services/categoryService";
+import { addProductToCart } from "../services/cartService";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import { Link } from "react-router-dom";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 export default function ProductDetail() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [quantity, setQuantity] = useState(1);
+  const [isAdding, setIsAdding] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [isBuying, setIsBuying] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,6 +51,25 @@ export default function ProductDetail() {
     fetchData();
   }, [id]);
 
+  // Kiểm tra trạng thái yêu thích khi sản phẩm được tải
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (product && storedUser) {
+      try {
+        const user = JSON.parse(storedUser);
+        const favoritesKey = `favorites_${user.id}`;
+        const favorites = JSON.parse(localStorage.getItem(favoritesKey)) || [];
+        setIsFavorite(favorites.some((fav) => fav.id === product.id));
+      } catch (e) {
+        console.error("Lỗi khi kiểm tra sản phẩm yêu thích:", e);
+        setIsFavorite(false);
+      }
+    } else {
+      // Nếu không có sản phẩm hoặc người dùng, không phải là yêu thích
+      setIsFavorite(false);
+    }
+  }, [product]);
+
   if (!product) {
     return (
       <>
@@ -67,6 +92,103 @@ export default function ProductDetail() {
   const decreaseQuantity = () => {
     if (quantity > 1) {
       setQuantity((prevQuantity) => prevQuantity - 1);
+    }
+  };
+
+  const handleToggleFavorite = () => {
+    // Lấy thông tin người dùng trực tiếp từ localStorage
+    const storedUser = localStorage.getItem("user");
+    let user = null;
+    try {
+      user = storedUser ? JSON.parse(storedUser) : null;
+    } catch (e) {
+      console.error("Lỗi khi đọc thông tin người dùng từ localStorage:", e);
+    }
+
+    if (!user) {
+      alert("Vui lòng đăng nhập để sử dụng chức năng yêu thích.");
+      navigate("/login");
+      return;
+    }
+
+    if (!product) return;
+
+    const favoritesKey = `favorites_${user.id}`;
+    const favorites = JSON.parse(localStorage.getItem(favoritesKey)) || [];
+    const productIndex = favorites.findIndex((fav) => fav.id === product.id);
+
+    let updatedFavorites;
+
+    if (productIndex > -1) {
+      updatedFavorites = favorites.filter((fav) => fav.id !== product.id);
+      setIsFavorite(false);
+    } else {
+      updatedFavorites = [...favorites, product];
+      setIsFavorite(true);
+    }
+
+    localStorage.setItem(favoritesKey, JSON.stringify(updatedFavorites));
+  };
+
+  const handleBuyNow = async () => {
+    // Lấy thông tin người dùng trực tiếp từ localStorage
+    const storedUser = localStorage.getItem("user");
+    let user = null;
+    try {
+      user = storedUser ? JSON.parse(storedUser) : null;
+    } catch (e) {
+      console.error("Lỗi khi đọc thông tin người dùng từ localStorage:", e);
+    }
+
+    if (!user) {
+      alert("Vui lòng đăng nhập để mua hàng.");
+      navigate("/login");
+      return;
+    }
+
+    if (!product) return;
+
+    setIsBuying(true);
+    try {
+      // Thêm sản phẩm vào giỏ hàng
+      await addProductToCart(user.id, product, quantity);
+      // Chuyển hướng ngay đến trang thanh toán
+      navigate("/checkout");
+    } catch (error) {
+      console.error("Lỗi khi thực hiện Mua ngay:", error);
+      alert("Đã xảy ra lỗi. Vui lòng thử lại.");
+    } finally {
+      setIsBuying(false);
+    }
+  };
+
+  const handleAddToCart = async () => {
+    // Lấy thông tin người dùng trực tiếp từ localStorage
+    const storedUser = localStorage.getItem("user");
+    let user = null;
+    try {
+      user = storedUser ? JSON.parse(storedUser) : null;
+    } catch (e) {
+      console.error("Lỗi khi đọc thông tin người dùng từ localStorage:", e);
+    }
+
+    if (!user) {
+      alert("Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng.");
+      navigate("/login");
+      return;
+    }
+
+    if (!product) return;
+
+    setIsAdding(true);
+    try {
+      await addProductToCart(user.id, product, quantity);
+      alert(`Đã thêm ${quantity} sản phẩm "${product.name}" vào giỏ hàng!`);
+    } catch (error) {
+      console.error("Lỗi khi thêm sản phẩm vào giỏ hàng:", error);
+      alert("Đã xảy ra lỗi. Vui lòng thử lại.");
+    } finally {
+      setIsAdding(false);
     }
   };
 
@@ -169,12 +291,31 @@ export default function ProductDetail() {
               </Button>
             </div>
             <div className="pt-4">
-              <Button variant="dark" className="me-3 px-4 py-2">
-                Add to Cart
+              <Button
+                variant="dark"
+                className="me-3 px-4 py-2"
+                onClick={handleAddToCart}
+                disabled={isAdding}
+              >
+                {isAdding ? "Đang thêm..." : "Thêm vào giỏ"}
               </Button>
 
-              <Button variant="outline-dark" className="px-4 py-2">
-                Buy Now
+              <Button
+                variant="outline-dark"
+                className="px-4 py-2"
+                onClick={handleBuyNow}
+                disabled={isBuying}
+              >
+                {isBuying ? "Đang xử lý..." : "Mua ngay"}
+              </Button>
+
+              <Button
+                variant="outline-danger"
+                className="ms-2 px-3 py-2 d-inline-flex align-items-center gap-2"
+                onClick={handleToggleFavorite}
+              >
+                {isFavorite ? <FaHeart /> : <FaRegHeart />}
+                <span>{isFavorite ? "Đã yêu thích" : "Yêu thích"}</span>
               </Button>
             </div>
           </Col>
