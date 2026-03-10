@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import AdminLayout from "./pages/admin/AdminLayout";
@@ -6,10 +11,14 @@ import Dashboard from "./pages/admin/Dashboard";
 import ProductManager from "./pages/admin/ProductManager";
 import CategoryManager from "./pages/admin/CategoryManager";
 import UserManager from "./pages/admin/UserManager";
+import Home from "./pages/Home";
+
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Cart from "./pages/cart/Cart";
 import OrderHistory from "./pages/order/OrderHistory";
+import ProductDetail from "./pages/ProductDetail";
+
 import VnpayReturn from "./pages/order/VnpayReturn";
 import Checkout from "./pages/order/Checkout";
 
@@ -17,17 +26,10 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Navigate to="/login" replace />} />
+       <Route path="/" element={<Navigate to="/home" replace />} />
         {/* ========== PUBLIC ROUTE ========== */}
-        <Route
-          path="/home"
-          element={
-            <div className="container text-center mt-5">
-              <h1>Clothing Store Website</h1>
-              <p>Welcome to FER202 Project</p>
-            </div>
-          }
-        />
+        <Route path="/home" element={<Home></Home>} />
+        <Route path="/products/:id" element={<ProductDetail/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         {/* ========== ADMIN ROUTE ========== */}
@@ -53,7 +55,6 @@ function App() {
             </div>
           }
         />
-
       </Routes>
     </Router>
   );
