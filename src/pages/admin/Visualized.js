@@ -5,21 +5,17 @@ import {
 } from "recharts";
 
 const Visualized = () => {
-  // 1. Các State lưu dữ liệu gốc (Chỉ gọi API 1 lần)
   const [categoryStats, setCategoryStats] = useState([]);
   const [allOrders, setAllOrders] = useState([]); 
   
-  // 2. Các State phục vụ việc chọn Năm
   const [availableYears, setAvailableYears] = useState([]);
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
 
-  // 3. Các State hiển thị lên giao diện (Sẽ thay đổi khi đổi Năm)
   const [totalRevenue, setTotalRevenue] = useState(0);
   const [monthlyRevenue, setMonthlyRevenue] = useState([]);
-  const [revenueStats, setRevenueStats] = useState([]); // Cho biểu đồ đường
-  const [displayOrders, setDisplayOrders] = useState([]); // Cho bảng đơn hàng
+  const [revenueStats, setRevenueStats] = useState([]); 
+  const [displayOrders, setDisplayOrders] = useState([]); 
 
-  // Hiệu ứng 1: Gọi API lấy dữ liệu ngay khi vào trang
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -33,22 +29,18 @@ const Visualized = () => {
         const categories = await resCategories.json();
         const orders = await resOrders.json();
 
-        // Xử lý Biểu đồ cột (Sản phẩm theo danh mục - không phụ thuộc vào năm)
         const catData = categories.map(cat => {
           const count = products.filter(p => p.categoryId === cat.id).length;
           return { name: cat.name, "Số lượng SP": count };
         });
         setCategoryStats(catData);
 
-        // Lấy ra danh sách các năm CÓ DATA từ đơn hàng (Dùng Set để loại bỏ trùng lặp)
         const years = [...new Set(orders.map(o => new Date(o.date).getFullYear()))];
-        // Sắp xếp năm mới nhất lên đầu (VD: 2026, 2025...)
         years.sort((a, b) => b - a); 
         
         setAvailableYears(years);
-        setAllOrders(orders); // Lưu toàn bộ đơn hàng vào kho gốc
+        setAllOrders(orders); 
 
-        // Nếu năm hiện tại không có data, tự động chọn cái năm gần nhất có data
         if (years.length > 0 && !years.includes(selectedYear)) {
           setSelectedYear(years[0]);
         }
@@ -59,13 +51,11 @@ const Visualized = () => {
     };
 
     fetchData();
-  }, []); // Mảng rỗng = Chỉ chạy 1 lần duy nhất
+  }, []); 
 
-  // Hiệu ứng 2: Tự động LỌC LẠI dữ liệu mỗi khi biến 'selectedYear' hoặc 'allOrders' thay đổi
   useEffect(() => {
     if (allOrders.length === 0) return;
 
-    // 1. Lọc ra các đơn hàng CHỈ THUỘC VỀ NĂM ĐÃ CHỌN
     const ordersThisYear = allOrders.filter(order => new Date(order.date).getFullYear() === selectedYear);
 
     let total = 0;
@@ -74,38 +64,31 @@ const Visualized = () => {
     }));
     const revMap = {};
 
-    // 2. Tính toán lại số liệu dựa trên các đơn hàng đã lọc
     ordersThisYear.forEach(order => {
-      // Cộng tổng năm
       total += order.totalAmount;
 
-      // Cộng dồn vào bảng 12 tháng
       const orderDate = new Date(order.date);
       const monthIndex = orderDate.getMonth();
       monthsData[monthIndex].revenue += order.totalAmount;
       monthsData[monthIndex].orderCount += 1;
 
-      // Gom nhóm cho biểu đồ đường (Theo ngày)
       const dateStr = orderDate.toLocaleDateString('vi-VN');
       if (!revMap[dateStr]) revMap[dateStr] = 0;
       revMap[dateStr] += order.totalAmount;
     });
 
-    // Cập nhật lên màn hình
     setTotalRevenue(total);
     setMonthlyRevenue(monthsData);
-    
-    // Ép kiểu dữ liệu cho biểu đồ đường
+
     const revData = Object.keys(revMap).map(date => ({
       date: date,
       "Doanh thu": revMap[date]
     }));
     setRevenueStats(revData);
 
-    // Cập nhật bảng đơn hàng (chỉ hiện của năm đó, đảo ngược để đơn mới nhất lên đầu)
     setDisplayOrders([...ordersThisYear].reverse());
 
-  }, [selectedYear, allOrders]); // Chìa khóa ở đây: Chạy lại hàm này khi selectedYear thay đổi
+  }, [selectedYear, allOrders]); 
 
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
@@ -113,7 +96,6 @@ const Visualized = () => {
 
   return (
     <div className="container-fluid mt-4">
-      {/* Tiêu đề & Nút chọn Năm */}
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2 className="mb-0">Báo Cáo Thống Kê</h2>
         <div className="d-flex align-items-center">
@@ -132,7 +114,6 @@ const Visualized = () => {
         </div>
       </div>
 
-      {/* Ô Tổng doanh thu năm (Dynamic) */}
       <div className="row mb-4">
         <div className="col-12">
           <div className="card shadow-sm border-0 bg-info text-white">

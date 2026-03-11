@@ -26,7 +26,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Navigate to="/login" replace />} />
+       <Route path="/" element={<Navigate to="/home" replace />} />
         {/* ========== PUBLIC ROUTE ========== */}
         <Route path="/home" element={<Home></Home>} />
         <Route path="/productList" element={<ProductList />}></Route>
