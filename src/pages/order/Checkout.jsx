@@ -8,6 +8,7 @@ import {
   Button,
   ListGroup,
   Spinner,
+  Alert,
 } from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
@@ -164,19 +165,20 @@ const Checkout = () => {
 
         // Gọi backend tạo URL thanh toán
         const response = await axios.post(
-          "http://localhost:1234/api/vnpay/create",
+          "http://localhost:1234/order/create_payment_url",
           {
             amount: totalAmount,
             orderInfo,
             orderId,
-            ipAddr: "127.0.0.1",
+            bankCode: "", 
+            language: "vn",
           },
         );
 
-        if (response.data.paymentUrl) {
-          window.location.href = response.data.paymentUrl;
+        if (response.data.data) {
+          window.location.href = response.data.data;
         } else {
-          throw new Error("Không nhận được paymentUrl");
+          throw new Error(response.data.message || "Không nhận được URL thanh toán");
         }
       } catch (err) {
         console.error(err);
@@ -192,6 +194,18 @@ const Checkout = () => {
         <Spinner animation="border" />
         <h2>Đang tải...</h2>
       </Container>
+    );
+  }
+
+  if (error) {
+    return (
+      <>
+        <Header />
+        <Container className="my-5" style={{ flex: 1 }}>
+          <Alert variant="danger">{error}</Alert>
+        </Container>
+        <Footer />
+      </>
     );
   }
 

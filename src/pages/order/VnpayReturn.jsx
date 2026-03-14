@@ -4,6 +4,8 @@ import { Container, Alert, Spinner, Card, Button } from "react-bootstrap";
 import axios from "axios";
 import { createOrder } from "../../services/orderService";
 import { clearCart } from "../../services/cartService";
+import Header from "../../components/layout/Header";
+import Footer from "../../components/layout/Footer";
 
 const VnpayReturn = () => {
   const [searchParams] = useSearchParams();
@@ -22,7 +24,7 @@ const VnpayReturn = () => {
         }
 
         const response = await axios.get(
-          "http://localhost:1234/api/vnpay/return",
+          "http://localhost:1234/order/vnpay_return",
           {
             params: queryParams,
           },
@@ -38,7 +40,7 @@ const VnpayReturn = () => {
 
             try {
               const finalOrder = { ...pendingOrder, status: "processing" };
-              await createOrder(finalOrder);
+              // await createOrder(finalOrder);
               await clearCart(pendingOrder.userId);
               sessionStorage.removeItem("pendingOrder");
 
@@ -79,6 +81,8 @@ const VnpayReturn = () => {
   }, [searchParams]);
 
   return (
+    <>
+    <Header />
     <Container className="my-5 d-flex justify-content-center">
       <Card style={{ width: "40rem" }}>
         <Card.Body className="text-center">
@@ -107,6 +111,8 @@ const VnpayReturn = () => {
         </Card.Body>
       </Card>
     </Container>
+    <Footer />
+    </>
   );
 };
 

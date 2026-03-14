@@ -950,13 +950,7 @@
     },
     {
       "userId": "6",
-      "items": [
-        {
-          "productId": "3",
-          "quantity": 1,
-          "price": 350000
-        }
-      ],
+      "items": [],
       "id": "QypzgGf"
     }
   ],
@@ -1077,6 +1071,326 @@
       "status": "processing",
       "date": "2026-03-10T04:48:06.776Z",
       "id": "D75OWlM"
+    },
+    {
+      "userId": "6",
+      "items": [
+        {
+          "productId": "3",
+          "quantity": 2,
+          "price": 350000
+        },
+        {
+          "productId": "8",
+          "quantity": 1,
+          "price": 850000
+        }
+      ],
+      "totalAmount": 1550000,
+      "shippingAddress": "asd",
+      "customerInfo": {
+        "fullName": "fgd",
+        "phone": "0987654321"
+      },
+      "paymentMethod": "vnpay",
+      "status": "processing",
+      "date": "2026-03-10T18:42:20.330Z",
+      "id": "r2zKEWv"
+    },
+    {
+      "userId": "6",
+      "items": [
+        {
+          "productId": "3",
+          "quantity": 2,
+          "price": 350000
+        },
+        {
+          "productId": "8",
+          "quantity": 1,
+          "price": 850000
+        }
+      ],
+      "totalAmount": 1550000,
+      "shippingAddress": "asd",
+      "customerInfo": {
+        "fullName": "fgd",
+        "phone": "0987654321"
+      },
+      "paymentMethod": "vnpay",
+      "status": "processing",
+      "date": "2026-03-10T18:42:20.330Z",
+      "id": "mjmPZUS"
+    },
+    {
+      "userId": "6",
+      "items": [
+        {
+          "productId": "2",
+          "quantity": 1,
+          "price": 150000
+        }
+      ],
+      "totalAmount": 150000,
+      "shippingAddress": "test",
+      "customerInfo": {
+        "fullName": "thang",
+        "phone": "0987654321"
+      },
+      "paymentMethod": "vnpay",
+      "status": "processing",
+      "date": "2026-03-10T18:46:12.082Z",
+      "id": "cNik6dr"
+    },
+    {
+      "userId": "6",
+      "items": [
+        {
+          "productId": "2",
+          "quantity": 1,
+          "price": 150000
+        }
+      ],
+      "totalAmount": 150000,
+      "shippingAddress": "test",
+      "customerInfo": {
+        "fullName": "thang",
+        "phone": "0987654321"
+      },
+      "paymentMethod": "vnpay",
+      "status": "processing",
+      "date": "2026-03-10T18:46:12.082Z",
+      "id": "GipjEaT"
+    },
+    {
+      "userId": "6",
+      "items": [
+        {
+          "productId": "2",
+          "quantity": 1,
+          "price": 150000
+        }
+      ],
+      "totalAmount": 150000,
+      "shippingAddress": "sdf",
+      "customerInfo": {
+        "fullName": "sad",
+        "phone": "0192837465"
+      },
+      "paymentMethod": "cod",
+      "status": "processing",
+      "date": "2026-03-10T18:52:52.018Z",
+      "id": "E_Ivetf"
+    },
+    {
+      "userId": "6",
+      "items": [
+        {
+          "productId": "2",
+          "quantity": 1,
+          "price": 150000
+        },
+        {
+          "productId": "8",
+          "quantity": 1,
+          "price": 850000
+        }
+      ],
+      "totalAmount": 1000000,
+      "shippingAddress": "ghj",
+      "customerInfo": {
+        "fullName": "sdf",
+        "phone": "098"
+      },
+      "paymentMethod": "vnpay",
+      "status": "processing",
+      "date": "2026-03-10T18:53:26.339Z",
+      "id": "F7zUfc7"
+    },
+    {
+      "userId": "6",
+      "items": [
+        {
+          "productId": "2",
+          "quantity": 1,
+          "price": 150000
+        },
+        {
+          "productId": "8",
+          "quantity": 1,
+          "price": 850000
+        }
+      ],
+      "totalAmount": 1000000,
+      "shippingAddress": "ghj",
+      "customerInfo": {
+        "fullName": "sdf",
+        "phone": "098"
+      },
+      "paymentMethod": "vnpay",
+      "status": "processing",
+      "date": "2026-03-10T18:53:26.339Z",
+      "id": "YIBGO8P"
+    },
+    {
+      "userId": "6",
+      "items": [
+        {
+          "productId": "3",
+          "quantity": 1,
+          "price": 350000
+        }
+      ],
+      "totalAmount": 350000,
+      "shippingAddress": "df",
+      "customerInfo": {
+        "fullName": "ads",
+        "phone": "123"
+      },
+      "paymentMethod": "vnpay",
+      "status": "pending_payment",
+      "date": "2026-03-10T19:00:32.010Z",
+      "id": "gIjmpdy"
+    },
+    {
+      "userId": "6",
+      "items": [
+        {
+          "productId": "3",
+          "quantity": 1,
+          "price": 350000
+        }
+      ],
+      "totalAmount": 350000,
+      "shippingAddress": "ghk",
+      "customerInfo": {
+        "fullName": "ert",
+        "phone": "089"
+      },
+      "paymentMethod": "vnpay",
+      "status": "pending_payment",
+      "date": "2026-03-10T19:00:58.277Z",
+      "id": "Nm_HfjK"
+    },
+    {
+      "userId": "6",
+      "items": [
+        {
+          "productId": "3",
+          "quantity": 1,
+          "price": 350000
+        }
+      ],
+      "totalAmount": 350000,
+      "shippingAddress": "sdf",
+      "customerInfo": {
+        "fullName": "sdf",
+        "phone": "123"
+      },
+      "paymentMethod": "vnpay",
+      "status": "pending_payment",
+      "date": "2026-03-10T19:04:21.381Z",
+      "id": "wQY8kUq"
+    },
+    {
+      "userId": "6",
+      "items": [
+        {
+          "productId": "3",
+          "quantity": 1,
+          "price": 350000
+        }
+      ],
+      "totalAmount": 350000,
+      "shippingAddress": "ghj",
+      "customerInfo": {
+        "fullName": "sa",
+        "phone": "123"
+      },
+      "paymentMethod": "vnpay",
+      "status": "pending_payment",
+      "date": "2026-03-10T19:05:42.258Z",
+      "id": "-PRLEL_"
+    },
+    {
+      "userId": "6",
+      "items": [
+        {
+          "productId": "3",
+          "quantity": 1,
+          "price": 350000
+        }
+      ],
+      "totalAmount": 350000,
+      "shippingAddress": "asd",
+      "customerInfo": {
+        "fullName": "as",
+        "phone": "123"
+      },
+      "paymentMethod": "vnpay",
+      "status": "pending_payment",
+      "date": "2026-03-10T19:07:52.519Z",
+      "id": "5NxzK1l"
+    },
+    {
+      "userId": "6",
+      "items": [
+        {
+          "productId": "3",
+          "quantity": 1,
+          "price": 350000
+        }
+      ],
+      "totalAmount": 350000,
+      "shippingAddress": "sdsa",
+      "customerInfo": {
+        "fullName": "as",
+        "phone": "098876452"
+      },
+      "paymentMethod": "vnpay",
+      "status": "processing",
+      "date": "2026-03-10T19:08:39.935Z",
+      "id": "2VSvLBc"
+    },
+    {
+      "userId": "6",
+      "items": [
+        {
+          "productId": "3",
+          "quantity": 1,
+          "price": 350000
+        }
+      ],
+      "totalAmount": 350000,
+      "shippingAddress": "sdsa",
+      "customerInfo": {
+        "fullName": "as",
+        "phone": "098876452"
+      },
+      "paymentMethod": "vnpay",
+      "status": "processing",
+      "date": "2026-03-10T19:08:39.935Z",
+      "id": "kUtOjUO"
+    },
+    {
+      "userId": "6",
+      "items": [
+        {
+          "productId": "41",
+          "quantity": 1,
+          "price": 1200000
+        }
+      ],
+      "totalAmount": 1200000,
+      "shippingAddress": "srfd",
+      "customerInfo": {
+        "fullName": "sad",
+        "phone": "3"
+      },
+      "paymentMethod": "cod",
+      "status": "processing",
+      "date": "2026-03-10T19:11:27.517Z",
+      "id": "OkZ8hlu"
     }
   ]
 }
