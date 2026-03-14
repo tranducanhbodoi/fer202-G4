@@ -36,13 +36,14 @@ const VnpayReturn = () => {
           // Giao dịch thành công
           const pendingOrderJSON = sessionStorage.getItem("pendingOrder");
           if (pendingOrderJSON) {
+            // Xóa ngay đơn hàng tạm để tránh xử lý lại nếu component re-render
+            sessionStorage.removeItem("pendingOrder");
             const pendingOrder = JSON.parse(pendingOrderJSON);
 
             try {
               const finalOrder = { ...pendingOrder, status: "processing" };
-              // await createOrder(finalOrder);
+              await createOrder(finalOrder);
               await clearCart(pendingOrder.userId);
-              sessionStorage.removeItem("pendingOrder");
 
               setStatus("success");
               setMessage(

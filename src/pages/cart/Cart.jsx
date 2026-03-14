@@ -24,8 +24,8 @@ const Cart = () => {
   // Lấy thông tin người dùng trực tiếp từ localStorage khi component render
   const [user, setUser] = useState(() => {
     const storedUser = localStorage.getItem("user");
+
     try {
-      // Thử parse JSON, nếu lỗi thì trả về null
       return storedUser ? JSON.parse(storedUser) : null;
     } catch (error) {
       console.error("Lỗi khi đọc thông tin người dùng từ localStorage:", error);
@@ -112,52 +112,39 @@ const Cart = () => {
     );
   }, [cart]);
 
-  if (loading) {
-    return (
-      <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-        <Header />
+  const renderContent = () => {
+    if (loading) {
+      return (
         <Container className="text-center my-5" style={{ flex: 1 }}>
           <Spinner animation="border" role="status">
             <span className="visually-hidden">Loading...</span>
           </Spinner>
           <h2 className="mt-3">Đang tải giỏ hàng...</h2>
         </Container>
-        <Footer />
-      </div>
-    );
-  }
+      );
+    }
 
-  if (!user) {
-    return (
-      <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-        <Header />
+    if (!user) {
+      return (
         <Container className="text-center my-5" style={{ flex: 1 }}>
           <h2>Vui lòng đăng nhập để xem giỏ hàng của bạn</h2>
           <Button as={Link} to="/login" variant="primary" className="mt-3">
             Đi đến trang đăng nhập
           </Button>
         </Container>
-        <Footer />
-      </div>
-    );
-  }
+      );
+    }
 
-  if (error) {
-    return (
-      <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-        <Header />
+    if (error) {
+      return (
         <Container className="my-5" style={{ flex: 1 }}>
           <Alert variant="danger">{error}</Alert>
         </Container>
-        <Footer />
-      </div>
-    );
-  }
+      );
+    }
 
-  if (!cart || !cart.items || cart.items.length === 0) {
-    return (
-      <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-        <Header />
+    if (!cart || !cart.items || cart.items.length === 0) {
+      return (
         <Container className="text-center my-5" style={{ flex: 1 }}>
           <h2>Giỏ hàng của bạn đang trống</h2>
           <p>Hãy khám phá các sản phẩm tuyệt vời của chúng tôi!</p>
@@ -165,14 +152,10 @@ const Cart = () => {
             Tiếp tục mua sắm
           </Button>
         </Container>
-        <Footer />
-      </div>
-    );
-  }
+      );
+    }
 
-  return (
-    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-      <Header />
+    return (
       <Container className="my-5" style={{ flex: 1 }}>
         <h1 className="mb-4">Giỏ hàng của bạn</h1>
         <Row>
@@ -258,6 +241,15 @@ const Cart = () => {
           </Col>
         </Row>
       </Container>
+    );
+  };
+
+  return (
+    <div
+      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+    >
+      <Header />
+      {renderContent()}
       <Footer />
     </div>
   );
