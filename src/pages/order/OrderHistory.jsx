@@ -254,7 +254,9 @@ const OrderHistory = () => {
                     <td>
                       {order.items.map((item) => (
                         <div
-                          key={`${order.id}-${item.productId}`}
+                          key={`${order.id}-${item.productId}-${
+                            item.size || "default"
+                          }`}
                           className="mb-1"
                         >
                           <Link
@@ -264,6 +266,7 @@ const OrderHistory = () => {
                             {item.product?.name || "Sản phẩm không tồn tại"}
                           </Link>
                           <small className="text-muted d-block">
+                            {item.size && `Size: ${item.size} | `}
                             SL: {item.quantity} &times;{" "}
                             {item.price.toLocaleString("vi-VN")} VNĐ
                           </small>
@@ -336,8 +339,11 @@ const OrderHistory = () => {
                   <hr />
                   <h5>Các sản phẩm</h5>
                   <ListGroup variant="flush">
-                    {selectedOrder.items.map((item) => (
-                      <ListGroup.Item key={item.productId} className="px-0">
+                    {selectedOrder.items.map((item, index) => (
+                      <ListGroup.Item
+                        key={`${item.productId}-${item.size || index}`}
+                        className="px-0"
+                      >
                         <Row className="align-items-center">
                           <Col xs={2} md={1}>
                             <Image src={item.product?.image} fluid rounded />
@@ -345,6 +351,7 @@ const OrderHistory = () => {
                           <Col xs={6} md={7}>
                             <div>{item.product?.name}</div>
                             <small className="text-muted">
+                              {item.size && `Size: ${item.size} | `}
                               Đơn giá: {item.price.toLocaleString("vi-VN")} VNĐ
                             </small>
                           </Col>

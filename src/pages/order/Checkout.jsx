@@ -96,10 +96,11 @@ const Checkout = () => {
       try {
         const orderData = {
           userId,
-          items: cart.items.map(({ productId, quantity, price }) => ({
+          items: cart.items.map(({ productId, quantity, price, size }) => ({
             productId,
             quantity,
             price,
+            size,
           })),
           totalAmount,
           shippingAddress: formData.shippingAddress,
@@ -131,10 +132,11 @@ const Checkout = () => {
         // Lưu đơn hàng tạm vào session để xử lý sau khi return
         const orderPayload = {
           userId,
-          items: cart.items.map(({ productId, quantity, price }) => ({
+          items: cart.items.map(({ productId, quantity, price, size }) => ({
             productId,
             quantity,
             price,
+            size,
           })),
           totalAmount,
           shippingAddress: formData.shippingAddress,
@@ -309,11 +311,16 @@ const Checkout = () => {
               <ListGroup variant="flush">
                 {cart?.items.map((item) => (
                   <ListGroup.Item
-                    key={item.productId}
+                    key={`${item.productId}-${item.size || "default"}`}
                     className="d-flex justify-content-between"
                   >
                     <span>
                       {item.product.name}{" "}
+                      {item.size && (
+                        <span className="text-muted">
+                          (Size: {item.size})
+                        </span>
+                      )}{" "}
                       <small className="text-muted">
                         &times;{item.quantity}
                       </small>

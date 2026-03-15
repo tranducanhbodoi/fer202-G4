@@ -61,7 +61,7 @@ const Cart = () => {
     }
   }, [userId]);
 
-  const handleUpdateQuantity = async (productId, quantity) => {
+  const handleUpdateQuantity = async (productId, quantity, size) => {
     const newQuantity = Math.max(1, parseInt(quantity, 10) || 1);
     const originalCart = cart; // Lưu lại state gốc để có thể rollback
 
@@ -69,7 +69,7 @@ const Cart = () => {
     const updatedCart = {
       ...cart,
       items: cart.items.map((item) =>
-        item.productId === productId
+        item.productId === productId && item.size === size
           ? { ...item, quantity: newQuantity }
           : item,
       ),
@@ -77,7 +77,7 @@ const Cart = () => {
     setCart(updatedCart);
 
     try {
-      await updateItemQuantity(userId, productId, newQuantity);
+      await updateItemQuantity(userId, productId, newQuantity, size);
     } catch (err) {
       console.error("Lỗi khi cập nhật số lượng:", err);
       alert("Đã xảy ra lỗi khi cập nhật số lượng sản phẩm.");
@@ -85,17 +85,19 @@ const Cart = () => {
     }
   };
 
-  const handleRemoveItem = async (productId) => {
+  const handleRemoveItem = async (productId, size) => {
     if (window.confirm("Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng?")) {
       const originalCart = cart; // Lưu lại state gốc
       // Cập nhật UI trước
       const updatedCart = {
         ...cart,
-        items: cart.items.filter((item) => item.productId !== productId),
+        items: cart.items.filter(
+          (item) => !(item.productId === productId && item.size === size),
+        ),
       };
       setCart(updatedCart);
       try {
-        await removeItemFromCart(userId, productId);
+        await removeItemFromCart(userId, productId, size);
       } catch (err) {
         console.error("Lỗi khi xóa sản phẩm:", err);
         alert("Đã xảy ra lỗi khi xóa sản phẩm.");
@@ -161,7 +163,10 @@ const Cart = () => {
         <Row>
           <Col lg={8}>
             {cart.items.map((item) => (
-              <Card key={item.productId} className="mb-3">
+              <Card
+                key={`${item.productId}-${item.size || "default"}`}
+                className="mb-3"
+              >
                 <Row className="g-0">
                   <Col
                     md={3}
@@ -179,11 +184,18 @@ const Cart = () => {
                       <div className="d-flex justify-content-between">
                         <Card.Title as="h5">{item.product.name}</Card.Title>
                         <CloseButton
-                          onClick={() => handleRemoveItem(item.productId)}
+                          onClick={() =>
+                            handleRemoveItem(item.productId, item.size)
+                          }
                         />
                       </div>
                       <Card.Text as="div">
-                        <small className="text-muted">
+                        {item.size && (
+                          <p className="mb-1">
+                            Kích thước: <strong>{item.size}</strong>
+                          </p>
+                        )}
+                        <small className="text-muted ">
                           Đơn giá: {item.product.price.toLocaleString("vi-VN")}{" "}
                           VNĐ
                         </small>
@@ -200,6 +212,7 @@ const Cart = () => {
                               handleUpdateQuantity(
                                 item.productId,
                                 e.target.value,
+                                item.size,
                               )
                             }
                             min="1"

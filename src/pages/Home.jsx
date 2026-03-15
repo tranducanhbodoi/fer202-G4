@@ -11,14 +11,12 @@ import {
 } from "react-bootstrap";
 import { getProducts } from "../services/productService";
 import { getCategories } from "../services/categoryService";
-import { addProductToCart } from "../services/cartService";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [isAdding, setIsAdding] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,36 +32,6 @@ export default function Home() {
     };
     fetchData();
   }, []);
-
-  const handleAddToCart = async (product, quantity = 1) => {
-    // Lấy thông tin người dùng trực tiếp từ localStorage
-    const storedUser = localStorage.getItem("user");
-    let user = null;
-    try {
-      user = storedUser ? JSON.parse(storedUser) : null;
-    } catch (e) {
-      console.error("Lỗi khi đọc thông tin người dùng từ localStorage:", e);
-    }
-
-    if (!user) {
-      alert("Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng.");
-      navigate("/login");
-      return;
-    }
-
-    if (!product) return;
-
-    setIsAdding(true);
-    try {
-      await addProductToCart(user.id, product, quantity);
-      alert(`Đã thêm sản phẩm "${product.name}" vào giỏ hàng!`);
-    } catch (error) {
-      console.error("Lỗi khi thêm sản phẩm vào giỏ hàng:", error);
-      alert("Đã xảy ra lỗi. Vui lòng thử lại.");
-    } finally {
-      setIsAdding(false);
-    }
-  };
 
   const highestRatingProduct = products.reduce((max, product) => {
     return product.rating > max.rating ? product : max;
@@ -270,13 +238,6 @@ export default function Home() {
                       </p>
 
                       <div className="mt-4">
-                        <Button
-                          className="btn-dark me-3 px-4 py-2"
-                          onClick={() => handleAddToCart(highestRatingProduct)}
-                          disabled={isAdding || !highestRatingProduct}
-                        >
-                          {isAdding ? "Đang thêm..." : "Thêm vào giỏ"}
-                        </Button>
                         <Button
                           className="outline-dark px-4 py-2"
                           as={Link}

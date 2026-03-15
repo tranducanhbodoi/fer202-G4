@@ -147,12 +147,17 @@ export default function ProductDetail() {
       return;
     }
 
+    if (product.availableSizes?.length > 0 && !selectedSize) {
+      alert("Vui lòng chọn kích thước để mua hàng.");
+      return;
+    }
+
     if (!product) return;
 
     setIsBuying(true);
     try {
       // Thêm sản phẩm vào giỏ hàng
-      await addProductToCart(user.id, product, quantity);
+      await addProductToCart(user.id, product, quantity, selectedSize);
       // Chuyển hướng ngay đến trang thanh toán
       navigate("/checkout");
     } catch (error) {
@@ -179,11 +184,16 @@ export default function ProductDetail() {
       return;
     }
 
+    if (product.availableSizes?.length > 0 && !selectedSize) {
+      alert("Vui lòng chọn kích thước sản phẩm.");
+      return;
+    }
+
     if (!product) return;
 
     setIsAdding(true);
     try {
-      await addProductToCart(user.id, product, quantity);
+      await addProductToCart(user.id, product, quantity, selectedSize);
       alert(`Đã thêm ${quantity} sản phẩm "${product.name}" vào giỏ hàng!`);
     } catch (error) {
       console.error("Lỗi khi thêm sản phẩm vào giỏ hàng:", error);
