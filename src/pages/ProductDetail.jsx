@@ -22,6 +22,7 @@ export default function ProductDetail() {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [quantity, setQuantity] = useState(1);
+  const [selectedSize, setSelectedSize] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -133,16 +134,33 @@ export default function ProductDetail() {
                 </span>
               ) : null}
             </div>
-            <p>{product.description}</p>
-            <hr></hr>
-            <p>
-              <span className="fw-bold fs-5">Danh mục:</span>{" "}
-              {
-                categories.find(
-                  (category) => product.categoryId === category.id,
-                )?.name
-              }
-            </p>
+            <div>
+              <p>{product.description}</p>
+              <hr></hr>
+              <p>
+                <span className="fw-bold fs-5 me-3">Danh mục:</span>{" "}
+                {
+                  categories.find(
+                    (category) => product.categoryId === category.id,
+                  )?.name
+                }
+              </p>
+            </div>
+
+            <div className="pb-3">
+              <span className="fw-bold fs-5 me-3">Kích thước:</span>
+              {product.availableSizes.map((size, index) => (
+                <Button
+                  key={index}
+                  variant={selectedSize === size ? "dark" : "outline-dark"}
+                  className="me-2"
+                  onClick={() => setSelectedSize(size)}
+                  style={{ width: "50px" }}
+                >
+                  {size}
+                </Button>
+              ))}
+            </div>
             <div className="d-flex align-items-center gap-2">
               <span className="fw-bold fs-5 me-3">Số Lượng:</span>
               <Button
