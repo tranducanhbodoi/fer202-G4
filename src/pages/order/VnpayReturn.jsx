@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { Container, Alert, Spinner, Card, Button } from "react-bootstrap";
+import axios from "axios";
 import { createOrder } from "../../services/orderService";
 import { clearCart } from "../../services/cartService";
+import Header from "../../components/layout/Header";
+import Footer from "../../components/layout/Footer";
 
 const VnpayReturn = () => {
   const [searchParams] = useSearchParams();
@@ -11,46 +14,67 @@ const VnpayReturn = () => {
 
   useEffect(() => {
     const verifyPayment = async () => {
-      // Lấy các tham số từ URL mà VNPay trả về
-      const vnp_ResponseCode = searchParams.get("vnp_ResponseCode");
+      try {
+        const queryParams = Object.fromEntries(searchParams.entries());
 
-      if (vnp_ResponseCode === "00") {
-        // Thanh toán thành công
-        // Lấy thông tin đơn hàng đã lưu tạm thời
-        const pendingOrderJSON = sessionStorage.getItem('pendingOrder');
-        if (pendingOrderJSON) {
-          const pendingOrder = JSON.parse(pendingOrderJSON);
-          
-          try {
-            // Cập nhật trạng thái đơn hàng và tạo đơn hàng trong DB
-            const finalOrder = { ...pendingOrder, status: 'processing' };
-            await createOrder(finalOrder);
-            
-            // Xóa giỏ hàng
-            await clearCart(pendingOrder.userId);
+        if (Object.keys(queryParams).length === 0) {
+          setStatus("error");
+          setMessage("Không có thông tin giao dịch để xác thực.");
+          return;
+        }
 
-            // Xóa đơn hàng tạm
-            sessionStorage.removeItem('pendingOrder');
+        const response = await axios.get(
+          "http://localhost:1234/order/vnpay_return",
+          {
+            params: queryParams,
+          },
+        );
 
-            setStatus("success");
-            setMessage("Thanh toán và đặt hàng thành công! Cảm ơn bạn đã mua hàng.");
-          } catch (error) {
-            console.error("Lỗi khi tạo đơn hàng sau khi thanh toán:", error);
+        const { code, message: rspMessage } = response.data;
+
+        if (code === "00") {
+          // Giao dịch thành công
+          const pendingOrderJSON = sessionStorage.getItem("pendingOrder");
+          if (pendingOrderJSON) {
+            // Xóa ngay đơn hàng tạm để tránh xử lý lại nếu component re-render
+            sessionStorage.removeItem("pendingOrder");
+            const pendingOrder = JSON.parse(pendingOrderJSON);
+
+            try {
+              const finalOrder = { ...pendingOrder, status: "processing" };
+              await createOrder(finalOrder);
+              await clearCart(pendingOrder.userId);
+
+              setStatus("success");
+              setMessage(
+                "Thanh toán và đặt hàng thành công! Cảm ơn bạn đã mua hàng.",
+              );
+            } catch (error) {
+              console.error("Lỗi khi tạo đơn hàng sau khi thanh toán:", error);
+              setStatus("error");
+              setMessage(
+                "Thanh toán thành công nhưng đã có lỗi xảy ra khi tạo đơn hàng. Vui lòng liên hệ hỗ trợ.",
+              );
+            }
+          } else {
             setStatus("error");
-            setMessage("Thanh toán thành công nhưng đã có lỗi xảy ra khi tạo đơn hàng. Vui lòng liên hệ hỗ trợ.");
+            setMessage(
+              "Không tìm thấy thông tin đơn hàng chờ xử lý. Giao dịch có thể đã được xử lý.",
+            );
           }
         } else {
+          // Giao dịch thất bại hoặc chữ ký không hợp lệ
           setStatus("error");
-          setMessage("Không tìm thấy thông tin đơn hàng chờ xử lý. Giao dịch không hợp lệ.");
+          setMessage(`Giao dịch thất bại: ${rspMessage} (Mã: ${code})`);
+          sessionStorage.removeItem("pendingOrder");
         }
-      } else {
-        // Thanh toán thất bại
+      } catch (error) {
+        console.error("Lỗi khi xác thực thanh toán:", error);
         setStatus("error");
         setMessage(
-          "Thanh toán không thành công. Vui lòng thử lại hoặc chọn phương thức thanh toán khác."
+          "Đã xảy ra lỗi trong quá trình xác thực thanh toán. Vui lòng liên hệ hỗ trợ.",
         );
-        // Xóa đơn hàng tạm nếu có
-        sessionStorage.removeItem('pendingOrder');
+        sessionStorage.removeItem("pendingOrder");
       }
     };
 
@@ -58,6 +82,8 @@ const VnpayReturn = () => {
   }, [searchParams]);
 
   return (
+    <>
+    <Header />
     <Container className="my-5 d-flex justify-content-center">
       <Card style={{ width: "40rem" }}>
         <Card.Body className="text-center">
@@ -86,6 +112,8 @@ const VnpayReturn = () => {
         </Card.Body>
       </Card>
     </Container>
+    <Footer />
+    </>
   );
 };
 

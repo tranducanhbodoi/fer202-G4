@@ -12,11 +12,12 @@ import {
 import { getProducts } from "../services/productService";
 import { getCategories } from "../services/categoryService";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -237,9 +238,6 @@ export default function Home() {
                       </p>
 
                       <div className="mt-4">
-                        <Button className="btn-dark me-3 px-4 py-2">
-                          Add to Cart
-                        </Button>
                         <Button
                           className="outline-dark px-4 py-2"
                           as={Link}

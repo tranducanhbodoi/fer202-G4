@@ -75,7 +75,12 @@ export const deleteCart = (id) => axios.delete(`${API_URL}/${id}`);
  * @param {object} product Đối tượng sản phẩm cần thêm
  * @param {number} quantity Số lượng cần thêm
  */
-export const addProductToCart = async (userId, product, quantity = 1) => {
+export const addProductToCart = async (
+  userId,
+  product,
+  quantity = 1,
+  size,
+) => {
   const cartResponse = await axios.get(`${API_URL}?userId=${userId}`);
   let cart = cartResponse.data[0];
 
@@ -88,6 +93,7 @@ export const addProductToCart = async (userId, product, quantity = 1) => {
           productId: product.id,
           quantity,
           price: product.price, // Lưu lại giá tại thời điểm thêm
+          size,
         },
       ],
     };
@@ -96,7 +102,7 @@ export const addProductToCart = async (userId, product, quantity = 1) => {
 
   // Nếu có giỏ hàng, cập nhật
   const existingItemIndex = cart.items.findIndex(
-    (item) => item.productId === product.id
+    (item) => item.productId === product.id && item.size === size,
   );
 
   if (existingItemIndex > -1) {
@@ -108,6 +114,7 @@ export const addProductToCart = async (userId, product, quantity = 1) => {
       productId: product.id,
       quantity,
       price: product.price,
+      size,
     });
   }
 
@@ -121,19 +128,21 @@ export const addProductToCart = async (userId, product, quantity = 1) => {
  * @param {number | string} productId ID của sản phẩm
  * @param {number} quantity Số lượng mới
  */
-export const updateItemQuantity = async (userId, productId, quantity) => {
+export const updateItemQuantity = async (userId, productId, quantity, size) => {
   if (quantity <= 0) {
-    return removeItemFromCart(userId, productId);
+    return removeItemFromCart(userId, productId, size);
   }
 
   const cartResponse = await axios.get(`${API_URL}?userId=${userId}`);
   const cart = cartResponse.data[0];
 
   if (!cart) {
-    throw new Error(`Cart not found for user with ID ${userId}`);
+    throw new Error(`Không tìm thấy giỏ hàng cho người dùng có ID ${userId}`);
   }
 
-  const itemIndex = cart.items.findIndex((item) => item.productId === productId);
+  const itemIndex = cart.items.findIndex(
+    (item) => item.productId === productId && item.size === size,
+  );
 
   if (itemIndex > -1) {
     cart.items[itemIndex].quantity = quantity;
@@ -148,15 +157,17 @@ export const updateItemQuantity = async (userId, productId, quantity) => {
  * @param {number | string} userId ID của người dùng
  * @param {number | string} productId ID của sản phẩm cần xóa
  */
-export const removeItemFromCart = async (userId, productId) => {
+export const removeItemFromCart = async (userId, productId, size) => {
   const cartResponse = await axios.get(`${API_URL}?userId=${userId}`);
   const cart = cartResponse.data[0];
 
   if (!cart) {
-    throw new Error(`Cart not found for user with ID ${userId}`);
+    throw new Error(`Không tìm thấy giỏ hàng cho người dùng có ID ${userId}`);
   }
 
-  const updatedItems = cart.items.filter((item) => item.productId !== productId);
+  const updatedItems = cart.items.filter(
+    (item) => !(item.productId === productId && item.size === size),
+  );
 
   const updatedCart = { ...cart, items: updatedItems };
   return updateCart(cart.id, updatedCart);

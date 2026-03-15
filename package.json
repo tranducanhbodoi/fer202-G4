@@ -10,6 +10,8 @@
     "axios": "^1.13.6",
     "boostrap": "^2.0.0",
     "bootstrap": "^5.3.8",
+    "crypto-js": "^4.2.0",
+    "qs": "^6.15.0",
     "firebase": "^12.10.0",
     "react": "^19.2.3",
     "react-bootstrap": "^2.10.10",
