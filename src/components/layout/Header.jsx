@@ -38,7 +38,7 @@ export default function Header() {
         <Navbar.Toggle />
         <Navbar.Collapse>
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/shop">
+            <Nav.Link as={Link} to="/productList">
               Catelog
             </Nav.Link>
 
@@ -54,15 +54,7 @@ export default function Header() {
               ))}
             </NavDropdown>
           </Nav>
-          <Nav className="flex-grow-1 ms-4">
-            <InputGroup className="w-75">
-              <Form.Control
-                type="text"
-                placeholder="Tìm Kiếm Tên Sản Phẩm ... "
-              ></Form.Control>
-              <Button variant="outline-secondary"> Search</Button>
-            </InputGroup>
-          </Nav>
+         
 
           <Nav>
             <Nav.Link as={Link} to="/cart">

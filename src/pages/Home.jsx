@@ -70,7 +70,7 @@ export default function Home() {
   }, products[0]);
 
   const top6HighestRatingProducts = [...products]
-    .sort((product, nexProduct) => nexProduct.rating - product.rating)
+    .sort((product, nextProduct) => nextProduct.rating - product.rating)
     .slice(0, 6);
 
   return (
@@ -194,7 +194,7 @@ export default function Home() {
             </div>
 
             <div className="text-center">
-             <Button as={Link} to="/products">Xem tất cả</Button>
+              <Button as={Link} to={"/productList"}>Xem tất cả</Button>
             </div>
           </div>
 
@@ -347,7 +347,7 @@ export default function Home() {
               ))}
             </Row>
             <div className="text-center mt-4">
-              <Button>Xem tất cả</Button>
+              <Button as={Link} to={"/productList"}>Xem tất cả</Button>
             </div>
           </div>
         </Container>
