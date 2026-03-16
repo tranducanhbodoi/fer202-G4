@@ -6,3 +6,6 @@ export const getUsers = () => axios.get(API_URL);
 
 export const deleteUser = (id) =>
   axios.delete(`${API_URL}/${id}`);
+
+export const updateUser = (id, user) => 
+  axios.put(`${API_URL}/${id}`, user);
