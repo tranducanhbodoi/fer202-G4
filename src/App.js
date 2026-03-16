@@ -12,7 +12,7 @@ import ProductManager from "./pages/admin/ProductManager";
 import CategoryManager from "./pages/admin/CategoryManager";
 import UserManager from "./pages/admin/UserManager";
 import Home from "./pages/Home";
-
+import OrderManager from "./pages/admin/OrderManager";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Cart from "./pages/cart/Cart";
@@ -39,6 +39,7 @@ function App() {
           <Route path="products" element={<ProductManager />} />
           <Route path="categories" element={<CategoryManager />} />
           <Route path="users" element={<UserManager />} />
+          <Route path="/admin/orders" element={<OrderManager />} />
         </Route>
 
         {/* ========== USER ROUTE ========== */}
