@@ -33,21 +33,26 @@ const Login = () => {
         }
     };
 
+
     const handleSocialLogin = async (provider) => {
         try {
             const result = await signInWithPopup(auth, provider);
             const userFirebase = result.user; 
 
-            const response = await fetch(`http://localhost:9999/users?email=${userFirebase.email}`);
+         
+            const safeEmail = userFirebase.email || `${userFirebase.uid}@facebook.com`;
+
+            
+            const response = await fetch(`http://localhost:9999/users?email=${safeEmail}`);
             const existingUsers = await response.json();
 
             if (existingUsers.length > 0) {
                 handleSuccessLogin(existingUsers[0]);
             } else {
                 const newUser = {
-                    email: userFirebase.email,
-                    password: "social_login_user", 
-                    fullName: userFirebase.displayName || "User Đăng nhập MXH", 
+                    email: safeEmail,
+                    password: "social_login_user",
+                    fullName: userFirebase.displayName || "Người dùng Facebook", 
                     phone: "",
                     role: "user"
                 };
@@ -66,7 +71,6 @@ const Login = () => {
             setError("Đăng nhập bằng mạng xã hội thất bại. Vui lòng thử lại.");
         }
     };
-
     const handleSuccessLogin = (user) => {
         localStorage.setItem("user", JSON.stringify(user));
         if (user.role === "admin") {
