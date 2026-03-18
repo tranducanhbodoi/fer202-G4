@@ -930,23 +930,7 @@
     {
       "id": "1",
       "userId": 2,
-      "items": [
-        {
-          "productId": "2",
-          "quantity": 2,
-          "price": 150000
-        },
-        {
-          "productId": "8",
-          "quantity": 1,
-          "price": 850000
-        },
-        {
-          "productId": "1",
-          "quantity": 2,
-          "price": 150000
-        }
-      ]
+      "items": []
     },
     {
       "userId": "6",
@@ -1426,6 +1410,51 @@
           "size": "S"
         }
       ]
+    },
+    {
+      "id": "aef6",
+      "userId": "2",
+      "items": [
+        {
+          "productId": "8",
+          "quantity": 1,
+          "price": 850000
+        },
+        {
+          "productId": "1",
+          "quantity": 2,
+          "price": 150000
+        }
+      ],
+      "totalAmount": 1150000,
+      "shippingAddress": "134 Tan Mai",
+      "customerInfo": {
+        "fullName": "Tran Duc Anh",
+        "phone": "0869889250"
+      },
+      "paymentMethod": "cod",
+      "status": "processing",
+      "date": "2026-03-18T13:42:24.335Z"
+    }
+  ],
+  "reviews": [
+    {
+      "id": "188e",
+      "productId": "8",
+      "userId": "2",
+      "userName": "Trần Đức Anh",
+      "rating": 5,
+      "comment": "chán\n",
+      "date": "2026-03-18T13:34:19.072Z"
+    },
+    {
+      "id": "1ad7",
+      "productId": "1",
+      "userId": "2",
+      "userName": "Trần Đức Anh",
+      "rating": 4,
+      "comment": "đẹp",
+      "date": "2026-03-18T13:43:10.676Z"
     }
   ]
 }
