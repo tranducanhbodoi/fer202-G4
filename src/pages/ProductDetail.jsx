@@ -17,6 +17,7 @@ import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import { Link } from "react-router-dom";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
+import ProductReviews from "./ProductReviews";
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -385,6 +386,7 @@ export default function ProductDetail() {
             </>
           ) : null}
         </Row>
+        <ProductReviews productId={id} />
       </Container>
 
       <Footer />
