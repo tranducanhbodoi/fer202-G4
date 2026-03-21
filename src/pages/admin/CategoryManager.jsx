@@ -3,7 +3,7 @@ import {
   getCategories,
   createCategory,
   updateCategory,
-  deleteCategory,
+  deleteCategoryWithRelations,
 } from "../../services/categoryService";
 
 const CategoryManager = () => {
@@ -46,7 +46,7 @@ const CategoryManager = () => {
 
   const handleDelete = async (id) => {
     if (window.confirm("Delete this category?")) {
-      await deleteCategory(id);
+      await deleteCategoryWithRelations(id);
       loadCategories();
     }
   };

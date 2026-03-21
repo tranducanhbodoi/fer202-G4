@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getUsers, deleteUser, updateUser } from "../../services/userService";
+import { getUsers, updateUser,deleteUserWithOrders } from "../../services/userService";
 
 const UserManager = () => {
   const [users, setUsers] = useState([]);
@@ -24,17 +24,35 @@ const UserManager = () => {
       return;
     }
 
-    if (window.confirm("Delete this user?")) {
-      await deleteUser(user.id);
-      loadUsers();
-    }
+    if (window.confirm("Delete user and related orders?")) {
+    await deleteUserWithOrders(user.id);
+    loadUsers();
+  }
   };
 
-  const handleUpdateRole = async () => {
-    await updateUser(editingUser.id, editingUser);
-    setEditingUser(null);
-    loadUsers();
-  };
+  const handleUpdateRole = async (user, newRole) => {
+
+  if (user.role === "admin") {
+    alert("Cannot change admin!");
+    return;
+  }
+
+  if (newRole === "admin") {
+    const hasAdmin = users.some(u => u.role === "admin");
+    if (hasAdmin) {
+      alert("Only 1 admin allowed!");
+      return;
+    }
+  }
+
+  await updateUser(user.id, {
+    ...user,
+    role: newRole,
+  });
+
+  setEditingUser(null); 
+  loadUsers();
+};
 
   // SEARCH (START WITH)
   const filteredUsers = users.filter(
@@ -154,6 +172,7 @@ const UserManager = () => {
           <select
             className="form-select mb-3"
             value={editingUser.role}
+            disabled={editingUser.role === "admin"}
             onChange={(e) =>
               setEditingUser({ ...editingUser, role: e.target.value })
             }
@@ -163,9 +182,14 @@ const UserManager = () => {
           </select>
 
           <div className="d-flex gap-2">
-            <button className="btn btn-success" onClick={handleUpdateRole}>
-              Save
-            </button>
+            <button
+  className="btn btn-success"
+  onClick={() =>
+    handleUpdateRole(editingUser, editingUser.role)
+  }
+>
+  Save
+</button>
 
             <button
               className="btn btn-secondary"
