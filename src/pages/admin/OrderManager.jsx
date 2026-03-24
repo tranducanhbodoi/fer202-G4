@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { getOrders, updateOrder } from "../../services/orderService";
+import { getOrders, updateOrder, deleteOrder } from "../../services/orderService";
 
 const OrderManager = () => {
-
   const [orders, setOrders] = useState([]);
   const [search, setSearch] = useState("");
 
@@ -18,16 +17,43 @@ const OrderManager = () => {
     setOrders(res.data.reverse());
   };
 
-  const handleStatusChange = async (order, status) => {
-    await updateOrder(order.id, { ...order, status });
+  const handleStatusChange = async (order, newStatus) => {
+
+    // ❌ nếu đã delivered → không cho đổi
+    if (order.status === "delivered") {
+      alert("Order already delivered!");
+      return;
+    }
+
+    // ❌ nếu đang processing mà đổi về pending → chặn
+    if (order.status === "processing" && newStatus === "pending") {
+      alert("Cannot change processing → pending!");
+      return;
+    }
+
+    await updateOrder(order.id, {
+      ...order,
+      status: newStatus,
+    });
+
     loadOrders();
   };
 
+  // ❌ delete order
+  const handleDelete = async (id) => {
+    if (window.confirm("Delete this order?")) {
+      await deleteOrder(id);
+      loadOrders();
+    }
+  };
+
+  // 🔍 search
   const filteredOrders = orders.filter((o) =>
     o.customerInfo?.fullName
       ?.toLowerCase()
-      .includes(search.toLowerCase())
+      .startsWith(search.toLowerCase())
   );
+
 
   const indexOfLast = currentPage * ordersPerPage;
   const indexOfFirst = indexOfLast - ordersPerPage;
@@ -44,7 +70,6 @@ const OrderManager = () => {
 
   return (
     <div>
-
       <h2 className="mb-4">Order Manager</h2>
 
       {/* SEARCH */}
@@ -52,11 +77,13 @@ const OrderManager = () => {
         className="form-control mb-3"
         placeholder="Search customer..."
         value={search}
-        onChange={(e) => setSearch(e.target.value)}
+        onChange={(e) => {
+          setSearch(e.target.value);
+          setCurrentPage(1);
+        }}
       />
 
       <table className="table table-bordered table-striped">
-
         <thead className="table-dark">
           <tr>
             <th>ID</th>
@@ -65,86 +92,101 @@ const OrderManager = () => {
             <th>Total</th>
             <th>Status</th>
             <th>Change Status</th>
+            <th>Action</th>
           </tr>
         </thead>
 
         <tbody>
           {currentOrders.map((o) => (
-
             <tr key={o.id}>
               <td>#{o.id}</td>
 
-              <td>
-                {new Date(o.date).toLocaleString("vi-VN")}
-              </td>
+              <td>{new Date(o.date).toLocaleString("vi-VN")}</td>
 
-              <td>
-                {o.customerInfo?.fullName || "Guest"}
-              </td>
+              <td>{o.customerInfo?.fullName || "Guest"}</td>
 
               <td className="fw-bold text-danger">
                 {formatCurrency(o.totalAmount)}
               </td>
 
               <td>
-                <span className={`badge 
-                ${o.status === "delivered"
+                <span
+                  className={`badge ${o.status === "delivered"
                     ? "bg-success"
                     : o.status === "processing"
-                    ? "bg-primary"
-                    : "bg-warning text-dark"}`}>
-
+                      ? "bg-primary"
+                      : "bg-warning text-dark"
+                    }`}
+                >
                   {o.status === "delivered"
                     ? "Delivered"
                     : o.status === "processing"
-                    ? "Processing"
-                    : "Pending"}
-
+                      ? "Processing"
+                      : "Pending"}
                 </span>
               </td>
 
               <td>
-
                 <select
                   className="form-select"
                   value={o.status}
+                  disabled={o.status === "delivered"} // 🔒 delivered khóa luôn
                   onChange={(e) =>
                     handleStatusChange(o, e.target.value)
                   }
                 >
                   <option value="pending">Pending</option>
-                  <option value="processing">Processing</option>
-                  <option value="delivered">Delivered</option>
-                </select>
 
+                  <option
+                    value="processing"
+                    disabled={o.status === "delivered"}
+                  >
+                    Processing
+                  </option>
+
+                  <option value="delivered">
+                    Delivered
+                  </option>
+                </select>
+              </td>
+
+              <td>
+                <button
+                  className="btn btn-danger btn-sm"
+                  disabled={o.status === "delivered"}
+                  onClick={() => handleDelete(o.id)}
+                >
+                  Delete
+                </button>
               </td>
             </tr>
-
           ))}
+
+          {currentOrders.length === 0 && (
+            <tr>
+              <td colSpan="7" className="text-center text-muted">
+                No orders found
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
 
       {/* PAGINATION */}
-      <div className="d-flex justify-content-center">
-
+      <div className="d-flex justify-content-center mt-3">
         {[...Array(totalPages)].map((_, index) => (
-
           <button
             key={index}
-            className={`btn me-2 
-            ${currentPage === index + 1
-                ? "btn-primary"
-                : "btn-outline-primary"}`}
-
+            className={`btn me-2 ${currentPage === index + 1
+              ? "btn-primary"
+              : "btn-outline-primary"
+              }`}
             onClick={() => setCurrentPage(index + 1)}
           >
             {index + 1}
           </button>
-
         ))}
-
       </div>
-
     </div>
   );
 };

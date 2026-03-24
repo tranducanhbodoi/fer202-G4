@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getUsers, deleteUser, updateUser } from "../../services/userService";
+import { getUsers, updateUser, deleteUserWithOrders } from "../../services/userService";
 
 const UserManager = () => {
   const [users, setUsers] = useState([]);
@@ -24,14 +24,32 @@ const UserManager = () => {
       return;
     }
 
-    if (window.confirm("Delete this user?")) {
-      await deleteUser(user.id);
+    if (window.confirm("Delete user and related orders?")) {
+      await deleteUserWithOrders(user.id);
       loadUsers();
     }
   };
 
-  const handleUpdateRole = async () => {
-    await updateUser(editingUser.id, editingUser);
+  const handleUpdateRole = async (user, newRole) => {
+
+    if (user.role === "admin") {
+      alert("Cannot change admin!");
+      return;
+    }
+
+    if (newRole === "admin") {
+      const hasAdmin = users.some(u => u.role === "admin");
+      if (hasAdmin) {
+        alert("Only 1 admin allowed!");
+        return;
+      }
+    }
+
+    await updateUser(user.id, {
+      ...user,
+      role: newRole,
+    });
+
     setEditingUser(null);
     loadUsers();
   };
@@ -85,9 +103,8 @@ const UserManager = () => {
 
               <td>
                 <span
-                  className={`badge ${
-                    u.role === "admin" ? "bg-danger" : "bg-primary"
-                  }`}
+                  className={`badge ${u.role === "admin" ? "bg-danger" : "bg-primary"
+                    }`}
                 >
                   {u.role}
                 </span>
@@ -154,6 +171,7 @@ const UserManager = () => {
           <select
             className="form-select mb-3"
             value={editingUser.role}
+            disabled={editingUser.role === "admin"}
             onChange={(e) =>
               setEditingUser({ ...editingUser, role: e.target.value })
             }
@@ -163,7 +181,12 @@ const UserManager = () => {
           </select>
 
           <div className="d-flex gap-2">
-            <button className="btn btn-success" onClick={handleUpdateRole}>
+            <button
+              className="btn btn-success"
+              onClick={() =>
+                handleUpdateRole(editingUser, editingUser.role)
+              }
+            >
               Save
             </button>
 
