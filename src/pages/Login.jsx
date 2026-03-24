@@ -125,14 +125,14 @@ const Login = () => {
                         Đăng Nhập
                     </button>
 
-                    {/* Dòng chữ HOẶC */}
+                 
                     <div className="d-flex align-items-center my-3">
                         <hr className="flex-grow-1" />
                         <span className="mx-2 text-muted" style={{fontSize: "14px"}}>Hoặc đăng nhập với</span>
                         <hr className="flex-grow-1" />
                     </div>
 
-                    {/* Nút Login MXH */}
+                    
                     <div className="d-flex gap-2">
                         <button 
                             type="button" 

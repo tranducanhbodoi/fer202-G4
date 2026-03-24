@@ -21,6 +21,7 @@ import ProductDetail from "./pages/ProductDetail";
 import ProductList from "./pages/ProductList";
 import VnpayReturn from "./pages/order/VnpayReturn";
 import Checkout from "./pages/order/Checkout";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -47,7 +48,7 @@ function App() {
           <Route path="/orders" element={<OrderHistory />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/payment/vnpay_return" element={<VnpayReturn />} />
-
+          <Route path="/profile" element={<Profile />} />
         {/* ========== 404 PAGE ========== */}
         <Route
           path="*"
