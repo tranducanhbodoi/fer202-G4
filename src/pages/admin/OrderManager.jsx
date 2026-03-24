@@ -17,18 +17,25 @@ const OrderManager = () => {
     setOrders(res.data.reverse());
   };
 
-  // 🔒 update status (khóa delivered)
-  const handleStatusChange = async (order, status) => {
+  const handleStatusChange = async (order, newStatus) => {
+
+    // ❌ nếu đã delivered → không cho đổi
     if (order.status === "delivered") {
-      alert("Order already delivered! Cannot change status.");
+      alert("Order already delivered!");
       return;
     }
 
-    if (status === "delivered") {
-      if (!window.confirm("Confirm delivery?")) return;
+    // ❌ nếu đang processing mà đổi về pending → chặn
+    if (order.status === "processing" && newStatus === "pending") {
+      alert("Cannot change processing → pending!");
+      return;
     }
 
-    await updateOrder(order.id, { ...order, status });
+    await updateOrder(order.id, {
+      ...order,
+      status: newStatus,
+    });
+
     loadOrders();
   };
 
@@ -47,7 +54,7 @@ const OrderManager = () => {
       .startsWith(search.toLowerCase())
   );
 
-  
+
   const indexOfLast = currentPage * ordersPerPage;
   const indexOfFirst = indexOfLast - ordersPerPage;
   const currentOrders = filteredOrders.slice(indexOfFirst, indexOfLast);
@@ -72,7 +79,7 @@ const OrderManager = () => {
         value={search}
         onChange={(e) => {
           setSearch(e.target.value);
-          setCurrentPage(1); 
+          setCurrentPage(1);
         }}
       />
 
@@ -104,19 +111,18 @@ const OrderManager = () => {
 
               <td>
                 <span
-                  className={`badge ${
-                    o.status === "delivered"
-                      ? "bg-success"
-                      : o.status === "processing"
+                  className={`badge ${o.status === "delivered"
+                    ? "bg-success"
+                    : o.status === "processing"
                       ? "bg-primary"
                       : "bg-warning text-dark"
-                  }`}
+                    }`}
                 >
                   {o.status === "delivered"
                     ? "Delivered"
                     : o.status === "processing"
-                    ? "Processing"
-                    : "Pending"}
+                      ? "Processing"
+                      : "Pending"}
                 </span>
               </td>
 
@@ -124,26 +130,30 @@ const OrderManager = () => {
                 <select
                   className="form-select"
                   value={o.status}
-                  disabled={o.status === "delivered"} 
-                  title={
-                    o.status === "delivered"
-                      ? "Order completed"
-                      : ""
-                  }
+                  disabled={o.status === "delivered"} // 🔒 delivered khóa luôn
                   onChange={(e) =>
                     handleStatusChange(o, e.target.value)
                   }
                 >
                   <option value="pending">Pending</option>
-                  <option value="processing">Processing</option>
-                  <option value="delivered">Delivered</option>
+
+                  <option
+                    value="processing"
+                    disabled={o.status === "delivered"}
+                  >
+                    Processing
+                  </option>
+
+                  <option value="delivered">
+                    Delivered
+                  </option>
                 </select>
               </td>
 
               <td>
                 <button
                   className="btn btn-danger btn-sm"
-                  disabled={o.status === "delivered"} 
+                  disabled={o.status === "delivered"}
                   onClick={() => handleDelete(o.id)}
                 >
                   Delete
@@ -167,11 +177,10 @@ const OrderManager = () => {
         {[...Array(totalPages)].map((_, index) => (
           <button
             key={index}
-            className={`btn me-2 ${
-              currentPage === index + 1
-                ? "btn-primary"
-                : "btn-outline-primary"
-            }`}
+            className={`btn me-2 ${currentPage === index + 1
+              ? "btn-primary"
+              : "btn-outline-primary"
+              }`}
             onClick={() => setCurrentPage(index + 1)}
           >
             {index + 1}
