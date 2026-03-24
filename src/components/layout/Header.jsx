@@ -54,7 +54,7 @@ export default function Header() {
               ))}
             </NavDropdown>
           </Nav>
-         
+
 
           <Nav>
             <Nav.Link as={Link} to="/cart">
@@ -73,12 +73,14 @@ export default function Header() {
 
             {currentUser ? (
               <NavDropdown
-                title={`Xin chào, ${
-                  currentUser?.fullName || currentUser?.email
-                }`}
+                title={`Xin chào, ${currentUser?.fullName || currentUser?.email
+                  }`}
                 id="user-nav-dropdown"
                 align="end"
               >
+                <NavDropdown.Item as={Link} to="/profile">
+                  Thông tin tài khoản
+                </NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/orders">
                   Lịch sử đơn hàng
                 </NavDropdown.Item>

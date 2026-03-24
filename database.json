@@ -43,16 +43,16 @@
     {
       "id": "6",
       "email": "lethang@gmail.com",
-      "password": "password123",
+      "password": "lethang123",
       "fullName": "Lê Thắng",
       "role": "user",
       "phone": "0977889900"
     },
     {
-      "id": "c12c",
+      "id": "ab6c",
       "email": "ducanhtran507@gmail.com",
-      "password": "tranducanh2005",
-      "fullName": "",
+      "password": "social_login_user",
+      "fullName": "Ducanh Tran",
       "phone": "",
       "role": "user"
     }
@@ -1435,6 +1435,54 @@
       "paymentMethod": "cod",
       "status": "processing",
       "date": "2026-03-18T13:42:24.335Z"
+    },
+    {
+      "id": "292b",
+      "userId": "2",
+      "items": [
+        {
+          "productId": "8",
+          "quantity": 2,
+          "price": 850000,
+          "size": "M"
+        }
+      ],
+      "totalAmount": 1700000,
+      "shippingAddress": "abc",
+      "customerInfo": {
+        "fullName": "thang",
+        "phone": "0987654321"
+      },
+      "paymentMethod": "cod",
+      "status": "pending",
+      "date": "2026-03-19T01:21:39.010Z"
+    },
+    {
+      "id": "a1d4",
+      "userId": "2",
+      "items": [
+        {
+          "productId": "2",
+          "quantity": 1,
+          "price": 150000,
+          "size": "L"
+        },
+        {
+          "productId": "2",
+          "quantity": 2,
+          "price": 150000,
+          "size": "M"
+        }
+      ],
+      "totalAmount": 450000,
+      "shippingAddress": "THANH HOA",
+      "customerInfo": {
+        "fullName": "Tran Duc Anh",
+        "phone": "0987654321"
+      },
+      "paymentMethod": "vnpay",
+      "status": "processing",
+      "date": "2026-03-19T01:52:30.318Z"
     }
   ],
   "reviews": [
@@ -1455,6 +1503,15 @@
       "rating": 4,
       "comment": "đẹp",
       "date": "2026-03-18T13:43:10.676Z"
+    },
+    {
+      "id": "2c07",
+      "productId": "8",
+      "userId": "2",
+      "userName": "Trần Đức Anh",
+      "rating": 5,
+      "comment": "áo đẹp",
+      "date": "2026-03-19T01:20:47.336Z"
     }
   ]
 }
